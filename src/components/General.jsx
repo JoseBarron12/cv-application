@@ -1,3 +1,12 @@
+function GeneralSection() {
+    return (
+        <section className="general-section">
+            <h2>General Information</h2>
+            <GeneralSectionForm showLinks={true}/>
+        </section>
+    )
+}
+
 function GeneralSectionForm({showLinks}) {
     return (
         <form className="general-info">
@@ -36,6 +45,4 @@ function GeneralSectionFormLinks() {
     )
 }
 
-
-
-export {GeneralSectionForm}
+export {GeneralSection}
