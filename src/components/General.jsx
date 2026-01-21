@@ -1,4 +1,4 @@
-function GeneralSection() {
+function GeneralSectionForm({showLinks}) {
     return (
         <form className="general-info">
             <div className="input-box">
@@ -13,8 +13,29 @@ function GeneralSection() {
                 <label htmlFor="general-phone">Phone Number</label>
                 <input type="email" name="general-phone" id="general-phone" />
             </div>
+            {showLinks && <GeneralSectionFormLinks/>}
         </form>
     )
 }
 
-export {GeneralSection}
+function GeneralSectionFormLinks() {
+    const supportedLinks = ["LinkedIn", "GitHub"];
+    
+    return (
+        <div className="input-links">
+            <h4>Additional Links</h4>
+            {supportedLinks.map((link)=> {
+                return (
+                <div className="input-box">
+                    <label htmlFor={"general-link-" + link.toLocaleLowerCase()}>{link}</label>
+                    <input type="url" name={"general-link-" + link.toLocaleLowerCase()} id={"general-link-" + link.toLocaleLowerCase()}/>
+                </div> 
+                )
+            })}
+        </div>
+    )
+}
+
+
+
+export {GeneralSectionForm}
