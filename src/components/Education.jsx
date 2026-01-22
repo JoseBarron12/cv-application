@@ -3,6 +3,12 @@ import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } f
 
 
 function EducationSectionForm() {
+    const [showAchievements, setShowAchievements] = useState(false);
+    
+    const onBtnClick = (currentView) => () => {
+        const newView = currentView ? false : true;
+        setShowAchievements(newView);
+    }
     return (
         <form className="education-info">
             <fieldset>
@@ -39,6 +45,14 @@ function EducationSectionForm() {
                     <input type="text" name="grade-info" id="grade-info"/>
                 </div>
             </fieldset>
+            <div className="additional-achievement-section">
+                <button 
+                  type="button"
+                  onClick={onBtnClick(showAchievements)}>
+                    Additional Achievements
+                </button>
+                {showAchievements && <EducationSectionFormAchievement/>}
+            </div>
         </form>
     )
 }
@@ -83,6 +97,19 @@ function EducationSectionFormDate({isStart, idName}) {
         </div>
     )
 }
+
+function EducationSectionFormAchievement() {
+    return (
+        <fieldset>
+            <legend>Add New Achievement</legend>
+            <div className="input-field">
+                <label htmlFor="achievement-info">Name</label>
+                <input type="text" name="achievement-info" id="achievement-info"/>
+            </div>
+        </fieldset>
+    )
+}
+
 
 
 
