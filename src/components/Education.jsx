@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
+
 
 function EducationSectionForm() {
     return (
@@ -26,9 +28,11 @@ function EducationSectionForm() {
                 </div>
                 <div className="input-field">
                     <label htmlFor="start-date">Start date</label>
+                    <EducationSectionFormDate isStart={true} idName={"start-date"}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="end-date">End date</label>
+                    <EducationSectionFormDate isStart={false} idName={"end-date"}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="grade-info">GPA</label>
@@ -38,5 +42,48 @@ function EducationSectionForm() {
         </form>
     )
 }
+
+function EducationSectionFormDate({isStart, idName}) {
+    
+    const months = eachMonthOfInterval({
+        start: new Date(2012, 12, 31),
+        end: new Date(2013, 11, 31)
+    });
+
+    const years = isStart ? eachYearOfInterval({
+        start: new Date(),
+        end: subYears(new Date(), 100)
+        }) : eachYearOfInterval({
+        start: addYears(new Date(), 10),
+        end: subYears(new Date(), 100)
+    });
+
+    return (
+        <div className="date-field">
+            <select name="months" id={"month-" + idName}>
+               <option value={-1}>Month</option>
+               {months.map((month, index) => {
+                    return (
+                        <option value={index + 1}>
+                            {format(month, 'MMMM')}
+                        </option>
+                    )
+               })} 
+            </select>
+            <select name="years" id={"year-" + idName}>
+               <option value={-1}>Year</option>
+               {years.map((year) => {
+                    return (
+                        <option value={year}>
+                            {format(year, 'yyyy')}
+                        </option>
+                    )
+               })} 
+            </select>
+        </div>
+    )
+}
+
+
 
 export {EducationSectionForm}
