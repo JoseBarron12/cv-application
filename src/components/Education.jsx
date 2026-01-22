@@ -1,8 +1,32 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 
+function EducationSection() {
+    const [showEducation, setShowEducation] = useState([]);
+    
+    return (
+        <section className="education-section">
+            <h2>Education Information</h2>
+            <button
+             type="button"
+             onClick={() => 
+                {   
+                    setShowEducation([
+                        ...showEducation,
+                        <EducationSectionForm key={crypto.randomUUID()}/>
+                    ])
+                }}
+            >Add New Education Information</button>
+            {showEducation.length != 0 && showEducation.map((form) => {
+                return (form)
+            })}
+        </section>
+    )
+}
 
-function EducationSectionForm() {
+
+
+function EducationSectionForm({numOfEdu}) {
     const [showAchievements, setShowAchievements] = useState(false);
     
     const onBtnClick = (currentView) => () => {
@@ -10,7 +34,7 @@ function EducationSectionForm() {
         setShowAchievements(newView);
     }
     return (
-        <form className="education-info">
+        <form className={"education-info" + numOfEdu}>
             <fieldset>
                 <legend>School Information</legend>
                 <div className="input-field">
@@ -111,6 +135,4 @@ function EducationSectionFormAchievement() {
 }
 
 
-
-
-export {EducationSectionForm}
+export {EducationSection}
