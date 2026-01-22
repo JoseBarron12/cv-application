@@ -1,13 +1,30 @@
+import { useState } from "react";
+
 function GeneralSection() {
+    const [showLink, setShowLink] = useState(false);
+
+    const onBtnClick = (currentView) => () => {
+        const newView = currentView ? false : true;
+        setShowLink(newView);
+    }
+    
     return (
         <section className="general-section">
             <h2>General Information</h2>
-            <GeneralSectionForm showLinks={true}/>
+            <GeneralSectionForm/>
+            <div className="additional-link-section">
+                <button 
+                  type="button"
+                  onClick={onBtnClick(showLink)}>
+                    Additional Links
+                </button>
+                {showLink && <GeneralSectionFormLinks/>}
+            </div>
         </section>
     )
 }
 
-function GeneralSectionForm({showLinks}) {
+function GeneralSectionForm() {
     return (
         <form className="general-info">
             <div className="input-box">
@@ -22,7 +39,6 @@ function GeneralSectionForm({showLinks}) {
                 <label htmlFor="general-phone">Phone Number</label>
                 <input type="email" name="general-phone" id="general-phone" />
             </div>
-            {showLinks && <GeneralSectionFormLinks/>}
         </form>
     )
 }
@@ -32,7 +48,7 @@ function GeneralSectionFormLinks() {
     
     return (
         <div className="input-links">
-            <h4>Additional Links</h4>
+            <form className="general-info-links">
             {supportedLinks.map((link)=> {
                 return (
                 <div className="input-box">
@@ -41,6 +57,7 @@ function GeneralSectionFormLinks() {
                 </div> 
                 )
             })}
+            </form>
         </div>
     )
 }
