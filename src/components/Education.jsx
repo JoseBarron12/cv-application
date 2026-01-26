@@ -15,10 +15,25 @@ function EducationSection() {
                         ...showEducation,
                         <EducationSectionForm key={crypto.randomUUID()}/>
                     ])
+                    console.log(showEducation);
                 }}
             >Add New Education Information</button>
-            {showEducation.length != 0 && showEducation.map((form) => {
-                return (form)
+            {showEducation.length != 0 && showEducation.map((form, index) => {
+                return (
+                    <div className="education-info-section" key={index}>
+                        {form}
+                        <button 
+                         type="button" 
+                         className="close-edu-btn"
+                         onClick={() => {
+                            const newArray = showEducation.filter((formUI, i) => {
+                                return i != index
+                            });
+                            setShowEducation(newArray);
+                         }
+                         }>X</button>
+                    </div>
+                    )
             })}
         </section>
     )
