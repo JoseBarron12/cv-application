@@ -126,6 +126,8 @@ function EducationSectionForm({numOfEdu}) {
 
 function EducationSectionFormDate({isStart, idName}) {
     
+    const [date, setDate] = useState({month: -1, year: -1});
+    
     const months = eachMonthOfInterval({
         start: new Date(2012, 12, 31),
         end: new Date(2013, 11, 31)
@@ -141,7 +143,12 @@ function EducationSectionFormDate({isStart, idName}) {
 
     return (
         <div className="date-field">
-            <select name="months" id={"month-" + idName}>
+            <select name="months" id={"month-" + idName}
+             value={date.month}
+             onChange={(event) => {
+                const newDate = {...date, month: event.target.value};
+                setDate(newDate)
+             }}>
                <option value={-1}>Month</option>
                {months.map((month, index) => {
                     return (
@@ -151,7 +158,12 @@ function EducationSectionFormDate({isStart, idName}) {
                     )
                })} 
             </select>
-            <select name="years" id={"year-" + idName}>
+            <select name="years" id={"year-" + idName}
+            value={date.year}
+             onChange={(event) => {
+                const newDate = {...date, year: event.target.value};
+                setDate(newDate)
+             }}>
                <option value={-1}>Year</option>
                {years.map((year, index) => {
                     return (
