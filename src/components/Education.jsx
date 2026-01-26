@@ -13,15 +13,18 @@ function EducationSection() {
                 {   
                     setShowEducation([
                         ...showEducation,
-                        <EducationSectionForm key={crypto.randomUUID()}/>
+                        {   
+                            ui: <EducationSectionForm key={crypto.randomUUID()}/>,
+                            id: crypto.randomUUID()
+                        }
+
                     ])
-                    console.log(showEducation);
                 }}
             >Add New Education Information</button>
             {showEducation.length != 0 && showEducation.map((form, index) => {
                 return (
-                    <div className="education-info-section" key={index}>
-                        {form}
+                    <div className="education-info-section" key={form.id}>
+                        {form.ui}
                         <button 
                          type="button" 
                          className="close-edu-btn"
@@ -33,8 +36,9 @@ function EducationSection() {
                          }
                          }>X</button>
                     </div>
-                    )
-            })}
+                )
+            })
+            }
         </section>
     )
 }
@@ -44,6 +48,15 @@ function EducationSection() {
 function EducationSectionForm({numOfEdu}) {
     const [showAchievements, setShowAchievements] = useState(false);
     
+    const [schoolName, setSchoolName] = useState("Ex: Harvard University");
+    const [locationName, setLocationName] = useState("Ex: Cambridge, MA");
+    
+    const [degreeName, setDegreeName] = useState("Ex: Bachelors");
+    const [fieldName, setFieldName] = useState("Ex: Computer Science");
+
+    const [gradeValue, setGradeValue] = useState("");
+
+
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowAchievements(newView);
@@ -54,22 +67,34 @@ function EducationSectionForm({numOfEdu}) {
                 <legend>School Information</legend>
                 <div className="input-field">
                     <label htmlFor="school-name">School</label>
-                    <input type="text" name="school-name" id="school-name" />
+                    <input type="text" name="school-name" id="school-name" 
+                     value={schoolName} onChange={(event) => {
+                        setSchoolName(event.target.value)
+                     }}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="location-name">Location</label>
-                    <input type="text" name="location-name" id="location-name" />
+                    <input type="text" name="location-name" id="location-name" 
+                     value={locationName} onChange={(event) => {
+                        setLocationName(event.target.value)
+                     }}/>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Degree Information</legend>
                 <div className="input-field">
                     <label htmlFor="degree-name">Degree</label>
-                    <input type="text" name="degree-name" id="degree-name" />
+                    <input type="text" name="degree-name" id="degree-name" 
+                     value={degreeName} onChange={(event) => {
+                        setDegreeName(event.target.value)
+                     }}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="study-name">Field of study</label>
-                    <input type="text" name="study-name" id="study-name"/>
+                    <input type="text" name="study-name" id="study-name"
+                     value={fieldName} onChange={(event) => {
+                        setFieldName(event.target.value)
+                     }}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="start-date">Start date</label>
@@ -81,7 +106,10 @@ function EducationSectionForm({numOfEdu}) {
                 </div>
                 <div className="input-field">
                     <label htmlFor="grade-info">GPA</label>
-                    <input type="text" name="grade-info" id="grade-info"/>
+                    <input type="text" name="grade-info" id="grade-info"
+                     value={gradeValue} onChange={(event) => {
+                        setGradeValue(event.target.value)
+                     }}/>
                 </div>
             </fieldset>
             <div className="additional-achievement-section">
@@ -117,7 +145,7 @@ function EducationSectionFormDate({isStart, idName}) {
                <option value={-1}>Month</option>
                {months.map((month, index) => {
                     return (
-                        <option value={index + 1}>
+                        <option value={index + 1} key={index}>
                             {format(month, 'MMMM')}
                         </option>
                     )
@@ -125,9 +153,9 @@ function EducationSectionFormDate({isStart, idName}) {
             </select>
             <select name="years" id={"year-" + idName}>
                <option value={-1}>Year</option>
-               {years.map((year) => {
+               {years.map((year, index) => {
                     return (
-                        <option value={year}>
+                        <option value={year} key={index}>
                             {format(year, 'yyyy')}
                         </option>
                     )
