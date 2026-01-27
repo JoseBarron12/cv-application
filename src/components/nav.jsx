@@ -1,5 +1,6 @@
 import Icon from '@mdi/react';
-import { mdiDownload } from '@mdi/js';
+import { mdiTrayArrowDown } from '@mdi/js';
+import "../styles/nav.css"
 
 export function NavSection() {
     return (
@@ -12,7 +13,7 @@ export function NavSection() {
                     Preview
                 </button>
                 <button className="download-btn">
-                    <Icon path={mdiDownload} className="download-icon"/>
+                    <Icon path={mdiTrayArrowDown} className='download-icon'/>
                     Download
                 </button>
             </div>
