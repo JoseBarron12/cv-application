@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/general.css"
 import Icon from '@mdi/react';
 import { mdiAccount } from '@mdi/js';
-import { mdiChevronDown,mdiChevronUp } from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiPlus, mdiMinus } from '@mdi/js';
 
 function GeneralSection() {
     const [showLink, setShowLink] = useState(false);
@@ -44,8 +44,10 @@ function GeneralSection() {
             {showSection && <div className="additional-link-section">
                 <button 
                   type="button"
-                  onClick={onBtnClick(showLink)}>
+                  onClick={(onBtnClick(showLink))}>
                     Additional Links
+                    {!showLink && <Icon path={mdiPlus} className="link-icon" />}
+                    {showLink && <Icon path={mdiMinus} className="link-icon" />}
                 </button>
                 {showLink && <GeneralSectionFormLinks userInput = {generalInput} callBack={setGeneralInput} />}
             </div>}
@@ -91,7 +93,7 @@ function GeneralSectionFormLinks({userInput, callBack}) {
                 if(link == "LinkedIn")
                 {
                     return (
-                    <div className="input-box" key={userInput.id + index}>
+                    <div className="input-field" key={userInput.id + index}>
                         <label htmlFor={"general-link-" + link.toLocaleLowerCase()}>{link}</label>
                         <input type="url" name={"general-link-" + link.toLocaleLowerCase()} id={"general-link-" + link.toLocaleLowerCase()}
                         value={userInput.linkedIn} onChange={(event) => {
@@ -102,7 +104,7 @@ function GeneralSectionFormLinks({userInput, callBack}) {
                 }
                 else if(link == "GitHub") {
                      return (
-                    <div className="input-box" key={userInput.id + index}>
+                    <div className="input-field" key={userInput.id + index}>
                         <label htmlFor={"general-link-" + link.toLocaleLowerCase()}>{link}</label>
                         <input type="url" name={"general-link-" + link.toLocaleLowerCase()} id={"general-link-" + link.toLocaleLowerCase()}
                         value={userInput.github} onChange={(event) => {
