@@ -1,4 +1,9 @@
 import { useState } from "react";
+import "../styles/general.css"
+import Icon from '@mdi/react';
+import { mdiAccount } from '@mdi/js';
+import { mdiChevronDown } from '@mdi/js';
+
 
 function GeneralSection() {
     const [showLink, setShowLink] = useState(false);
@@ -10,7 +15,13 @@ function GeneralSection() {
     
     return (
         <section className="general-section">
-            <h2>General Information</h2>
+            <div className="header-section">
+                <div>
+                    <Icon path={mdiAccount} className="header-icon" />
+                    <h2>General Information</h2>
+                </div>
+                    <Icon path={mdiChevronDown} className="header-icon" />
+            </div>
             <GeneralSectionForm/>
             <div className="additional-link-section">
                 <button 
@@ -27,15 +38,15 @@ function GeneralSection() {
 function GeneralSectionForm() {
     return (
         <form className="general-info">
-            <div className="input-box">
+            <div className="input-field">
                 <label htmlFor="general-name">Full Name</label>
                 <input type="text" name="general-name" id="general-name" />
             </div>
-            <div className="input-box">
+            <div className="input-field">
                 <label htmlFor="general-email">Email</label>
                 <input type="email" name="general-email" id="general-email" />
             </div>
-            <div className="input-box">
+            <div className="input-field">
                 <label htmlFor="general-phone">Phone Number</label>
                 <input type="email" name="general-phone" id="general-phone" />
             </div>
