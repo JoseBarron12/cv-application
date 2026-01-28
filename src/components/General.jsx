@@ -2,16 +2,22 @@ import { useState } from "react";
 import "../styles/general.css"
 import Icon from '@mdi/react';
 import { mdiAccount } from '@mdi/js';
-import { mdiChevronDown } from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp } from '@mdi/js';
 
 
 function GeneralSection() {
     const [showLink, setShowLink] = useState(false);
-
+    const [showSection, setShowSection] = useState(false);
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowLink(newView);
     }
+
+    const showSectionBtn = (currentView) => () => {
+        const newView = currentView ? false : true;
+        setShowSection(newView);
+    }
+
     
     return (
         <section className="general-section">
@@ -20,17 +26,22 @@ function GeneralSection() {
                     <Icon path={mdiAccount} className="header-icon" />
                     <h2>General Information</h2>
                 </div>
-                    <Icon path={mdiChevronDown} className="header-icon" />
+                    {!showSection && <button type="button" onClick={showSectionBtn(showSection)}>
+                        <Icon path={mdiChevronDown} className="header-icon" />
+                    </button>}
+                    {showSection && <button type="button" onClick={showSectionBtn(showSection)}>
+                        <Icon path={mdiChevronUp} className="header-icon" />
+                    </button>}
             </div>
-            <GeneralSectionForm/>
-            <div className="additional-link-section">
+            {showSection && <GeneralSectionForm/>}
+            {showSection && <div className="additional-link-section">
                 <button 
                   type="button"
                   onClick={onBtnClick(showLink)}>
                     Additional Links
                 </button>
                 {showLink && <GeneralSectionFormLinks/>}
-            </div>
+            </div>}
         </section>
     )
 }
