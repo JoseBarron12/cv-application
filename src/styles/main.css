@@ -1,0 +1,23 @@
+main {
+    background-color: var(--background);
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+.form-section > section > h2 {
+    font-size: 1.85rem;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 32px;
+}
+
+.form-section > *{
+    background-color: var(--primary);
+    color: var(--secondary);
+    padding: 8px 16px;
+    border-radius: 16px;
+}

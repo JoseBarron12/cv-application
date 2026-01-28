@@ -7,11 +7,6 @@
     font-display: swap;
 }
 
-body {
-  font-family: 'Noto Serif Khmer';
-  font-weight: 400;
-}
-
 *,
 *::before,
 *::after {
@@ -32,6 +27,8 @@ body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-family: 'Noto Serif Khmer';
+  font-weight: 400;
 }
 
 img,
