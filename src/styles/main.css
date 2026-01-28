@@ -4,10 +4,6 @@ main {
     grid-template-columns: 2fr 3fr;
 }
 
-.form-section > section > h2 {
-    font-size: 1.85rem;
-}
-
 .form-section {
     display: flex;
     flex-direction: column;
@@ -20,4 +16,10 @@ main {
     color: var(--secondary);
     padding: 8px 16px;
     border-radius: 16px;
+}
+
+.header-icon {
+    height: 32px;
+    width: auto;
+    color: var(--secondary);
 }

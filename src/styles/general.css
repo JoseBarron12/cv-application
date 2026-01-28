@@ -1,0 +1,81 @@
+.general-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-section > div{
+    display: flex;
+    align-items: center;
+}
+.header-section > div > h2 {
+    font-size: 1.5rem;
+}
+
+.header-section > button {
+    background: none;
+    border: none;
+}
+
+form.general-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-field > input {
+    background-color: rgba(2, 0, 36, 0.2);
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+    color: var(--secondary);
+}
+
+.additional-link-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 0px;
+    gap: 8px;
+}
+
+.additional-link-section > button{
+    border: none;
+    background: none;
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+} 
+
+form.general-info-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.link-icon {
+    height: 24px;
+    width: auto;
+    color: var(--secondary);
+}
+
