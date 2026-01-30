@@ -1,0 +1,25 @@
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 8px;
+    border-radius: 24px;
+    background-color: black;
+}
+
+button.new-edu-btn {
+    border: none;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 24px;
+    font-weight: bold;
+    border-radius: 24px;
+    width: max-content;
+    color: var(--text);
+}
+
+button.new-edu-btn > .link-icon {
+    color: var(--text);
+}

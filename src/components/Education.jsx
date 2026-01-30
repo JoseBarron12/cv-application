@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiSchool} from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus} from '@mdi/js';
+import "../styles/education.css"
 
 function EducationSection() {
     const [showEducation, setShowEducation] = useState([]);
@@ -27,20 +28,23 @@ function EducationSection() {
                 </button>}
 
             </div>
-            {showSection && <button
-             type="button"
-             onClick={() => 
-                {   
-                    setShowEducation([
-                        ...showEducation,
-                        {   
-                            ui: <EducationSectionForm key={crypto.randomUUID()}/>,
-                            id: crypto.randomUUID()
-                        }
-
-                    ])
-                }}
-            >Add New Education Information</button>}
+            {showSection && <div className="button-container">
+                <button className="new-edu-btn"
+                 type="button"
+                 onClick={() =>
+                    {
+                        setShowEducation([
+                            ...showEducation,
+                            {
+                                ui: <EducationSectionForm key={crypto.randomUUID()}/>,
+                                id: crypto.randomUUID()
+                            }
+                        ])
+                    }}
+                >
+                    <Icon path={mdiPlus} className="link-icon" />
+                    Education</button>
+            </div>}
             {showEducation.length != 0 && showEducation.map((form, index) => {
                 return (
                     <div className="education-info-section" key={form.id}>
