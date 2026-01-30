@@ -1,13 +1,33 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
+import Icon from '@mdi/react';
+import { mdiChevronDown,mdiChevronUp, mdiSchool} from '@mdi/js';
 
 function EducationSection() {
     const [showEducation, setShowEducation] = useState([]);
+    const [showSection, setShowSection] = useState(false);
     
+    const showSectionBtn = (currentView) => () => {
+        const newView = currentView ? false : true;
+        setShowSection(newView);
+    }
+
     return (
         <section className="education-section">
-            <h2>Education Information</h2>
-            <button
+            <div className="header-section">
+                <div>
+                    <Icon path={mdiSchool} className="header-icon" />
+                    <h2>Education Information</h2>
+                </div>
+                 {!showSection && <button type="button" onClick={showSectionBtn(showSection)}>
+                    <Icon path={mdiChevronDown} className="header-icon" />
+                </button>}
+                {showSection && <button type="button" onClick={showSectionBtn(showSection)}>
+                    <Icon path={mdiChevronUp} className="header-icon" />
+                </button>}
+
+            </div>
+            {showSection && <button
              type="button"
              onClick={() => 
                 {   
@@ -20,7 +40,7 @@ function EducationSection() {
 
                     ])
                 }}
-            >Add New Education Information</button>
+            >Add New Education Information</button>}
             {showEducation.length != 0 && showEducation.map((form, index) => {
                 return (
                     <div className="education-info-section" key={form.id}>
