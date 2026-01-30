@@ -5,7 +5,7 @@ import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus} from '@mdi/js';
 import "../styles/education.css"
 
 function EducationSection() {
-    const [showEducation, setShowEducation] = useState([]);
+    const [showEducationForm, setShowEducationForm] = useState(false);
     const [showSection, setShowSection] = useState(false);
     
     const showSectionBtn = (currentView) => () => {
@@ -28,48 +28,26 @@ function EducationSection() {
                 </button>}
 
             </div>
+            {showSection && showEducationForm && <EducationSectionForm/>}
             {showSection && <div className="button-container">
                 <button className="new-edu-btn"
                  type="button"
                  onClick={() =>
                     {
-                        setShowEducation([
-                            ...showEducation,
-                            {
-                                ui: <EducationSectionForm key={crypto.randomUUID()}/>,
-                                id: crypto.randomUUID()
-                            }
-                        ])
+                        setShowEducationForm(true);
                     }}
                 >
                     <Icon path={mdiPlus} className="link-icon" />
                     Education</button>
             </div>}
-            {showEducation.length != 0 && showEducation.map((form, index) => {
-                return (
-                    <div className="education-info-section" key={form.id}>
-                        {form.ui}
-                        <button 
-                         type="button" 
-                         className="close-edu-btn"
-                         onClick={() => {
-                            const newArray = showEducation.filter((formUI, i) => {
-                                return i != index
-                            });
-                            setShowEducation(newArray);
-                         }
-                         }>X</button>
-                    </div>
-                )
-            })
-            }
+            
         </section>
     )
 }
 
 
 
-function EducationSectionForm({numOfEdu}) {
+function EducationSectionForm() {
     const [showAchievements, setShowAchievements] = useState(false);
     
     const [schoolName, setSchoolName] = useState("Ex: Harvard University");
@@ -86,7 +64,7 @@ function EducationSectionForm({numOfEdu}) {
         setShowAchievements(newView);
     }
     return (
-        <form className={"education-info" + numOfEdu}>
+        <form className={"education-info"}>
             <fieldset>
                 <legend>School Information</legend>
                 <div className="input-field">
