@@ -29,7 +29,7 @@ function EducationSection() {
                 </button>}
 
             </div>
-            {showSection && showEducationForm && <EducationSectionForm/>}
+            {showSection && showEducationForm && <EducationSectionForm setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}/>}
             {showSection && showAddBtn && <div className="button-container">
                 <button className="new-edu-btn"
                  type="button"
@@ -49,7 +49,7 @@ function EducationSection() {
 
 
 
-function EducationSectionForm() {
+function EducationSectionForm({setShowEducationForm, setShowAddBtn}) {
     const [showAchievements, setShowAchievements] = useState(false);
     
     const [schoolName, setSchoolName] = useState("Ex: Harvard University");
@@ -126,7 +126,7 @@ function EducationSectionForm() {
                 </button>
                 {showAchievements && <EducationSectionFormAchievement/>}
             </div>
-            <EducationSectionFormBtns/>
+            <EducationSectionFormBtns setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}/>
         </form>
     )
 }
@@ -196,7 +196,7 @@ function EducationSectionFormAchievement() {
     )
 }
 
-function EducationSectionFormBtns() {
+function EducationSectionFormBtns({ setShowAddBtn,setShowEducationForm}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button"> 
@@ -204,13 +204,21 @@ function EducationSectionFormBtns() {
                 Delete
             </button>
             <div>
-                <button className="cancel-btn" type="button">Cancel</button>
+                <button className="cancel-btn" type="button"
+                onClick={() =>
+                    {
+                        setShowEducationForm(false);
+                        setShowAddBtn(true);
+                    }}>
+                    Cancel
+                </button>
                 <button className="save-btn" type="submit"
                     onClick={(event) => {
                         event.preventDefault();
                     }}>
                     <Icon path={mdiContentSave} className="link-icon" />
-                    Save</button>
+                    Save
+                </button>
             </div>
         </div>
     )
