@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus} from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus} from '@mdi/js';
 import "../styles/education.css"
 
 function EducationSection() {
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showSection, setShowSection] = useState(false);
+    const [showAddBtn, setShowAddBtn] = useState(true);
     
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -29,12 +30,13 @@ function EducationSection() {
 
             </div>
             {showSection && showEducationForm && <EducationSectionForm/>}
-            {showSection && <div className="button-container">
+            {showSection && showAddBtn && <div className="button-container">
                 <button className="new-edu-btn"
                  type="button"
                  onClick={() =>
                     {
                         setShowEducationForm(true);
+                        setShowAddBtn(false);
                     }}
                 >
                     <Icon path={mdiPlus} className="link-icon" />
@@ -119,6 +121,8 @@ function EducationSectionForm() {
                   type="button"
                   onClick={onBtnClick(showAchievements)}>
                     Additional Achievements
+                    {!showAchievements && <Icon path={mdiPlus} className="link-icon" />}
+                    {showAchievements && <Icon path={mdiMinus} className="link-icon" />}
                 </button>
                 {showAchievements && <EducationSectionFormAchievement/>}
             </div>
