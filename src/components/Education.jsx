@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus} from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete} from '@mdi/js';
 import "../styles/education.css"
 
 function EducationSection() {
@@ -126,6 +126,7 @@ function EducationSectionForm() {
                 </button>
                 {showAchievements && <EducationSectionFormAchievement/>}
             </div>
+            <EducationSectionFormBtns/>
         </form>
     )
 }
@@ -192,6 +193,26 @@ function EducationSectionFormAchievement() {
                 <input type="text" name="achievement-info" id="achievement-info"/>
             </div>
         </fieldset>
+    )
+}
+
+function EducationSectionFormBtns() {
+    return (
+        <div className="form-btns">
+            <button className="delete-btn" type="button"> 
+                <Icon path={mdiDelete} className="link-icon" />
+                Delete
+            </button>
+            <div>
+                <button className="cancel-btn" type="button">Cancel</button>
+                <button className="save-btn" type="submit"
+                    onClick={(event) => {
+                        event.preventDefault();
+                    }}>
+                    <Icon path={mdiContentSave} className="link-icon" />
+                    Save</button>
+            </div>
+        </div>
     )
 }
 
