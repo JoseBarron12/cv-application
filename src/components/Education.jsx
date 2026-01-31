@@ -8,6 +8,7 @@ function EducationSection() {
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showSection, setShowSection] = useState(false);
     const [showAddBtn, setShowAddBtn] = useState(true);
+    const [userEducation, setUserEducation] = useState([]);
     
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -29,7 +30,14 @@ function EducationSection() {
                 </button>}
 
             </div>
-            {showSection && showEducationForm && <EducationSectionForm setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}/>}
+            {showSection && showAddBtn && userEducation.length != 0 && userEducation.map(input => {
+                return (
+                    <div className="input-container" key={input.id}>{input.school}</div>
+                )
+            })}
+            {showSection && showEducationForm && <EducationSectionForm 
+            setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
+            userEducation={userEducation} setUserEducation={setUserEducation}/>}
             {showSection && showAddBtn && <div className="button-container">
                 <button className="new-edu-btn"
                  type="button"
@@ -47,19 +55,16 @@ function EducationSection() {
     )
 }
 
-
-
-function EducationSectionForm({setShowEducationForm, setShowAddBtn}) {
+function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation}) {
     const [showAchievements, setShowAchievements] = useState(false);
     
-    const [schoolName, setSchoolName] = useState("Ex: Harvard University");
-    const [locationName, setLocationName] = useState("Ex: Cambridge, MA");
+    const [schoolName, setSchoolName] = useState("");
+    const [locationName, setLocationName] = useState("");
     
-    const [degreeName, setDegreeName] = useState("Ex: Bachelors");
-    const [fieldName, setFieldName] = useState("Ex: Computer Science");
+    const [degreeName, setDegreeName] = useState("");
+    const [fieldName, setFieldName] = useState("");
 
     const [gradeValue, setGradeValue] = useState("");
-
 
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -126,7 +131,12 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn}) {
                 </button>
                 {showAchievements && <EducationSectionFormAchievement/>}
             </div>
-            <EducationSectionFormBtns setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}/>
+            <EducationSectionFormBtns 
+            setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
+            userEducation={userEducation} setUserEducation={setUserEducation}
+            schoolName = {schoolName} locationName = {locationName} degreeName = {degreeName}
+            fieldName = {fieldName} gradeValue = {gradeValue}
+            />
         </form>
     )
 }
@@ -196,7 +206,8 @@ function EducationSectionFormAchievement() {
     )
 }
 
-function EducationSectionFormBtns({ setShowAddBtn,setShowEducationForm}) {
+function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm, 
+    userEducation, setUserEducation, schoolName, locationName, degreeName, fieldName, gradeValue}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button"> 
@@ -215,6 +226,16 @@ function EducationSectionFormBtns({ setShowAddBtn,setShowEducationForm}) {
                 <button className="save-btn" type="submit"
                     onClick={(event) => {
                         event.preventDefault();
+                        setUserEducation([...userEducation, {
+                            school: schoolName,
+                            location: locationName,
+                            degree: degreeName,
+                            field: fieldName,
+                            grade: gradeValue,
+                            id: crypto.randomUUID()
+                        }]);
+                        setShowEducationForm(false);
+                        setShowAddBtn(true);
                     }}>
                     <Icon path={mdiContentSave} className="link-icon" />
                     Save
