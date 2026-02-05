@@ -85,6 +85,12 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
     const defaultGrade = selectedEdu != null ? selectedEdu.grade : "";
     const [gradeValue, setGradeValue] = useState(defaultGrade);
 
+    const defaultStartDate = selectedEdu != null ? selectedEdu.startDate : "";
+    const [startDate, setStartDate] = useState(defaultStartDate);
+    
+    const defaultEndDate = selectedEdu != null ? selectedEdu.endDate : "";
+    const [endDate, setEndDate] = useState(defaultEndDate);
+
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowAchievements(newView);
@@ -126,11 +132,13 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                 </div>
                 <div className="input-field">
                     <label htmlFor="start-date">Start date</label>
-                    <EducationSectionFormDate isStart={true} idName={"start-date"}/>
+                    <EducationSectionFormDate isStart={true} idName={"start-date"}
+                    currentDate={startDate} setCurrentDate={setStartDate}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="end-date">End date</label>
-                    <EducationSectionFormDate isStart={false} idName={"end-date"}/>
+                    <EducationSectionFormDate isStart={false} idName={"end-date"}
+                    currentDate={endDate} setCurrentDate={setEndDate}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="grade-info">GPA</label>
@@ -145,8 +153,8 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                   type="button"
                   onClick={onBtnClick(showAchievements)}>
                     Additional Achievements
-                    {!showAchievements && <Icon path={mdiPlus} className="link-icon" />}
-                    {showAchievements && <Icon path={mdiMinus} className="link-icon" />}
+                    {!showAchievements && <Icon path={mdiPlus} className="link-icon plus-icon" />}
+                    {showAchievements && <Icon path={mdiMinus} className="link-icon plus-icon" />}
                 </button>
                 {showAchievements && <EducationSectionFormAchievement/>}
             </div>
@@ -154,15 +162,13 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
             setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
             userEducation={userEducation} setUserEducation={setUserEducation} selectedEdu={selectedEdu} setSelectedEdu={setSelectedEdu}
             schoolName = {schoolName} locationName = {locationName} degreeName = {degreeName}
-            fieldName = {fieldName} gradeValue = {gradeValue}
+            fieldName = {fieldName} gradeValue = {gradeValue} startDate = {startDate} endDate = {endDate}
             />
         </form>
     )
 }
 
-function EducationSectionFormDate({isStart, idName}) {
-    
-    const [date, setDate] = useState({month: -1, year: -1});
+function EducationSectionFormDate({isStart, idName, currentDate, setCurrentDate}) {
     
     const months = eachMonthOfInterval({
         start: new Date(2012, 12, 31),
@@ -180,10 +186,9 @@ function EducationSectionFormDate({isStart, idName}) {
     return (
         <div className="date-field">
             <select name="months" id={"month-" + idName}
-             value={date.month}
+             value={currentDate.month}
              onChange={(event) => {
-                const newDate = {...date, month: event.target.value};
-                setDate(newDate)
+                setCurrentDate({...currentDate, month: event.target.value});
              }}>
                <option value={-1}>Month</option>
                {months.map((month, index) => {
@@ -195,10 +200,9 @@ function EducationSectionFormDate({isStart, idName}) {
                })} 
             </select>
             <select name="years" id={"year-" + idName}
-            value={date.year}
+            value={currentDate.year}
              onChange={(event) => {
-                const newDate = {...date, year: event.target.value};
-                setDate(newDate)
+                setCurrentDate({...currentDate, year: event.target.value});
              }}>
                <option value={-1}>Year</option>
                {years.map((year, index) => {
@@ -226,7 +230,8 @@ function EducationSectionFormAchievement() {
 }
 
 function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm, 
-    userEducation, setUserEducation,selectedEdu, setSelectedEdu, schoolName, locationName, degreeName, fieldName, gradeValue}) {
+    userEducation, setUserEducation,selectedEdu, setSelectedEdu, schoolName, locationName, degreeName, fieldName, gradeValue,
+    startDate, endDate}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button"
@@ -270,6 +275,8 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                                 degree: degreeName,
                                 field: fieldName,
                                 grade: gradeValue,
+                                startDate: startDate,
+                                endDate: endDate,
                                 id: selectedEdu.id
                             };
                             setSelectedEdu(null);
@@ -283,6 +290,8 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                             degree: degreeName,
                             field: fieldName,
                             grade: gradeValue,
+                            startDate: startDate,
+                            endDate: endDate,
                             id: crypto.randomUUID()
                             }]);
                         }
