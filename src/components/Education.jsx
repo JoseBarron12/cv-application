@@ -251,7 +251,13 @@ function EducationSectionFormAchievement({achievements, setAchievements}) {
                     <div className="achievement-container" key={achievement.id}>
                         <p>{achievement.achievement}</p>
                         <button className="achievement-btn"><Icon path={mdiEyeOutline} className="link-icon"/></button>
-                        <button className="achievement-btn"><Icon path={mdiDelete} className="link-icon delete-icon"/></button>
+                        <button className="achievement-btn"><Icon path={mdiDelete} className="link-icon delete-icon"
+                        onClick={() => {
+                            const arr = achievements;
+                            setAchievements(arr.filter((element) => {
+                                if(element.id != achievement.id) return element;
+                            }))
+                        }}/></button>
                     </div>
                 )
             })}
