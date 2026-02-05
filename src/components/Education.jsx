@@ -3,12 +3,14 @@ import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } f
 import Icon from '@mdi/react';
 import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiEyeOutline} from '@mdi/js';
 import "../styles/education.css"
+import { constructFromSymbol } from "date-fns/constants";
 
 function EducationSection() {
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showSection, setShowSection] = useState(false);
     const [showAddBtn, setShowAddBtn] = useState(true);
-    const [userEducation, setUserEducation] = useState([]);
+    const [userEducation, setUserEducation] = useState([]); 
+    const [selectedEdu, setSelectedEdu] = useState(null)
     
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -33,14 +35,21 @@ function EducationSection() {
             {showSection && showAddBtn && userEducation.length != 0 && userEducation.map(input => {
                 return (
                     <div className="button-container input-container" key={input.id}>
-                        <button className="input-name">{input.school}</button>
+                        <button className="input-name"
+                        onClick={() =>
+                        {
+                            setSelectedEdu(input);
+                            setShowEducationForm(true);
+                            setShowAddBtn(false);
+                        }}>{input.school}</button>
                         <button className="input-btn"><Icon path={mdiEyeOutline} className="link-icon" /></button>
                     </div>
                 )
             })}
             {showSection && showEducationForm && <EducationSectionForm 
             setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
-            userEducation={userEducation} setUserEducation={setUserEducation}/>}
+            userEducation={userEducation} setUserEducation={setUserEducation} 
+            selectedEdu={selectedEdu} setSelectedEdu={setSelectedEdu}/>}
             {showSection && showAddBtn && <div className="button-container">
                 <button className="new-edu-btn"
                  type="button"
@@ -58,16 +67,23 @@ function EducationSection() {
     )
 }
 
-function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation}) {
+function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation, selectedEdu, setSelectedEdu}) {
     const [showAchievements, setShowAchievements] = useState(false);
     
-    const [schoolName, setSchoolName] = useState("");
-    const [locationName, setLocationName] = useState("");
+    const defaultSchool = selectedEdu != null ? selectedEdu.school : "";
+    const [schoolName, setSchoolName] = useState(defaultSchool);
     
-    const [degreeName, setDegreeName] = useState("");
-    const [fieldName, setFieldName] = useState("");
-
-    const [gradeValue, setGradeValue] = useState("");
+    const defaultLocation = selectedEdu != null ? selectedEdu.location : "";
+    const [locationName, setLocationName] = useState(defaultLocation);
+    
+    const defaultDegree = selectedEdu != null ? selectedEdu.degree : "";
+    const [degreeName, setDegreeName] = useState(defaultDegree);
+    
+    const defaultField = selectedEdu != null ? selectedEdu.field : "";
+    const [fieldName, setFieldName] = useState(defaultField);
+    
+    const defaultGrade = selectedEdu != null ? selectedEdu.grade : "";
+    const [gradeValue, setGradeValue] = useState(defaultGrade);
 
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -136,7 +152,7 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
             </div>
             <EducationSectionFormBtns 
             setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
-            userEducation={userEducation} setUserEducation={setUserEducation}
+            userEducation={userEducation} setUserEducation={setUserEducation} selectedEdu={selectedEdu} setSelectedEdu={setSelectedEdu}
             schoolName = {schoolName} locationName = {locationName} degreeName = {degreeName}
             fieldName = {fieldName} gradeValue = {gradeValue}
             />
@@ -210,7 +226,7 @@ function EducationSectionFormAchievement() {
 }
 
 function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm, 
-    userEducation, setUserEducation, schoolName, locationName, degreeName, fieldName, gradeValue}) {
+    userEducation, setUserEducation,selectedEdu, setSelectedEdu, schoolName, locationName, degreeName, fieldName, gradeValue}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button"> 
@@ -229,14 +245,34 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                 <button className="save-btn" type="submit"
                     onClick={(event) => {
                         event.preventDefault();
-                        setUserEducation([...userEducation, {
+                        if(selectedEdu != null)
+                        {
+                            const arr = userEducation;
+                            const indexOfSelected = arr.findIndex((element) => {
+                                return element.id == selectedEdu.id;
+                            });
+                            arr[indexOfSelected] = {
+                                school: schoolName,
+                                location: locationName,
+                                degree: degreeName,
+                                field: fieldName,
+                                grade: gradeValue,
+                                id: selectedEdu.id
+                            };
+                            setSelectedEdu(null);
+                            setUserEducation(arr);
+                        }
+                        else
+                        {
+                            setUserEducation([...userEducation, {
                             school: schoolName,
                             location: locationName,
                             degree: degreeName,
                             field: fieldName,
                             grade: gradeValue,
                             id: crypto.randomUUID()
-                        }]);
+                            }]);
+                        }
                         setShowEducationForm(false);
                         setShowAddBtn(true);
                     }}>
