@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete} from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiEyeOutline} from '@mdi/js';
 import "../styles/education.css"
 
 function EducationSection() {
@@ -32,7 +32,10 @@ function EducationSection() {
             </div>
             {showSection && showAddBtn && userEducation.length != 0 && userEducation.map(input => {
                 return (
-                    <div className="input-container" key={input.id}>{input.school}</div>
+                    <div className="button-container input-container" key={input.id}>
+                        <button className="input-name">{input.school}</button>
+                        <button className="input-btn"><Icon path={mdiEyeOutline} className="link-icon" /></button>
+                    </div>
                 )
             })}
             {showSection && showEducationForm && <EducationSectionForm 
