@@ -229,7 +229,20 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
     userEducation, setUserEducation,selectedEdu, setSelectedEdu, schoolName, locationName, degreeName, fieldName, gradeValue}) {
     return (
         <div className="form-btns">
-            <button className="delete-btn" type="button"> 
+            <button className="delete-btn" type="button"
+            onClick={() =>
+                    {
+                        if(selectedEdu != null)
+                        {
+                            const arr = userEducation;
+                            setUserEducation(arr.filter((element) => {
+                                if(element.id != selectedEdu.id) return element;
+                            }));
+                            setSelectedEdu(null);
+                        }
+                        setShowEducationForm(false);
+                        setShowAddBtn(true);
+                    }}> 
                 <Icon path={mdiDelete} className="link-icon" />
                 Delete
             </button>
