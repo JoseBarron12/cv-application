@@ -285,6 +285,7 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                 <button className="cancel-btn" type="button"
                 onClick={() =>
                     {
+                        setSelectedEdu(null);
                         setShowEducationForm(false);
                         setShowAddBtn(true);
                     }}>
