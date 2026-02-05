@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
 import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiEyeOutline} from '@mdi/js';
 import "../styles/education.css"
-import { constructFromSymbol } from "date-fns/constants";
 
 function EducationSection() {
     const [showEducationForm, setShowEducationForm] = useState(false);
@@ -91,6 +90,9 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
     const defaultEndDate = selectedEdu != null ? selectedEdu.endDate : "";
     const [endDate, setEndDate] = useState(defaultEndDate);
 
+    const defaultAchievements= selectedEdu != null ? selectedEdu.achievements: "";
+    const [achievements, setAchievements] = useState(defaultAchievements);
+
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowAchievements(newView);
@@ -156,14 +158,14 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     {!showAchievements && <Icon path={mdiPlus} className="link-icon plus-icon" />}
                     {showAchievements && <Icon path={mdiMinus} className="link-icon plus-icon" />}
                 </button>
-                {showAchievements && <EducationSectionFormAchievement/>}
+                {showAchievements && <EducationSectionFormAchievement achievements={achievements} setAchievements={setAchievements}/>}
             </div>
             <EducationSectionFormBtns 
             setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
             userEducation={userEducation} setUserEducation={setUserEducation} selectedEdu={selectedEdu} setSelectedEdu={setSelectedEdu}
             schoolName = {schoolName} locationName = {locationName} degreeName = {degreeName}
             fieldName = {fieldName} gradeValue = {gradeValue} startDate = {startDate} endDate = {endDate}
-            />
+            achievements = {achievements} />
         </form>
     )
 }
@@ -217,21 +219,49 @@ function EducationSectionFormDate({isStart, idName, currentDate, setCurrentDate}
     )
 }
 
-function EducationSectionFormAchievement() {
+function EducationSectionFormAchievement({achievements, setAchievements}) {
+
+    const [currentAchievement, setCurrentAchievement] = useState("");
+    
     return (
         <fieldset>
             <legend>Add New Achievement</legend>
             <div className="input-field">
-                <label htmlFor="achievement-info">Name</label>
-                <input type="text" name="achievement-info" id="achievement-info"/>
+                <label htmlFor="achievement-info">Name
+                    <button className="add-achievement"
+                    onClick = {(event) => {
+                        event.preventDefault();
+                        setAchievements([...achievements, {
+                            achievement: currentAchievement,
+                            id: crypto.randomUUID()
+                        }])
+                        setCurrentAchievement("")
+                    }}>
+                    <Icon path={mdiContentSave} className="link-icon"/>
+                        Save Achievement
+                    </button>
+                </label>
+                <input type="text" name="achievement-info" id="achievement-info" value={currentAchievement}
+                 onChange={(event) => {
+                    setCurrentAchievement(event.target.value);
+                }}/>
             </div>
+            { achievements.length != 0 &&  achievements.map((achievement) => {
+                return (
+                    <div className="achievement-container" key={achievement.id}>
+                        <p>{achievement.achievement}</p>
+                        <button className="achievement-btn"><Icon path={mdiEyeOutline} className="link-icon"/></button>
+                        <button className="achievement-btn"><Icon path={mdiDelete} className="link-icon delete-icon"/></button>
+                    </div>
+                )
+            })}
         </fieldset>
     )
 }
 
 function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm, 
     userEducation, setUserEducation,selectedEdu, setSelectedEdu, schoolName, locationName, degreeName, fieldName, gradeValue,
-    startDate, endDate}) {
+    startDate, endDate, achievements}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button"
@@ -277,6 +307,7 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                                 grade: gradeValue,
                                 startDate: startDate,
                                 endDate: endDate,
+                                achievements: achievements,
                                 id: selectedEdu.id
                             };
                             setSelectedEdu(null);
@@ -292,6 +323,7 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                             grade: gradeValue,
                             startDate: startDate,
                             endDate: endDate,
+                            achievements: achievements,
                             id: crypto.randomUUID()
                             }]);
                         }
