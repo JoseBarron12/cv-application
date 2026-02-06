@@ -4,17 +4,9 @@ import Icon from '@mdi/react';
 import { mdiAccount } from '@mdi/js';
 import { mdiChevronDown,mdiChevronUp, mdiPlus, mdiMinus } from '@mdi/js';
 
-function GeneralSection() {
+function GeneralSection({generalInput, setGeneralInput}) {
     const [showLink, setShowLink] = useState(false);
     const [showSection, setShowSection] = useState(false);
-    const [generalInput, setGeneralInput] = useState({
-        name: "",
-        email: "",
-        number: "",
-        linkedIn: "",
-        github: "",
-        id: crypto.randomUUID()
-    })
     
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -46,8 +38,8 @@ function GeneralSection() {
                   type="button"
                   onClick={(onBtnClick(showLink))}>
                     Additional Links
-                    {!showLink && <Icon path={mdiPlus} className="link-icon" />}
-                    {showLink && <Icon path={mdiMinus} className="link-icon" />}
+                    {!showLink && <Icon path={mdiPlus} className="link-icon plus-icon" />}
+                    {showLink && <Icon path={mdiMinus} className="link-icon plus-icon" />}
                 </button>
                 {showLink && <GeneralSectionFormLinks userInput = {generalInput} callBack={setGeneralInput} />}
             </div>}
