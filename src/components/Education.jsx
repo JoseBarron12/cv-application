@@ -4,11 +4,10 @@ import Icon from '@mdi/react';
 import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiEyeOutline} from '@mdi/js';
 import "../styles/education.css"
 
-function EducationSection() {
+function EducationSection({userEducation, setUserEducation}) {
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showSection, setShowSection] = useState(false);
     const [showAddBtn, setShowAddBtn] = useState(true);
-    const [userEducation, setUserEducation] = useState([]); 
     const [selectedEdu, setSelectedEdu] = useState(null)
     
     const showSectionBtn = (currentView) => () => {
@@ -253,7 +252,7 @@ function EducationSectionFormAchievement({achievements, setAchievements}) {
                         <button className="achievement-btn"><Icon path={mdiEyeOutline} className="link-icon"/></button>
                         <button className="achievement-btn"><Icon path={mdiDelete} className="link-icon delete-icon"
                         onClick={() => {
-                            const arr = achievements;
+                            const arr = [...achievements];
                             setAchievements(arr.filter((element) => {
                                 if(element.id != achievement.id) return element;
                             }))
@@ -302,7 +301,7 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                         event.preventDefault();
                         if(selectedEdu != null)
                         {
-                            const arr = userEducation;
+                            const arr = [...userEducation];
                             const indexOfSelected = arr.findIndex((element) => {
                                 return element.id == selectedEdu.id;
                             });
