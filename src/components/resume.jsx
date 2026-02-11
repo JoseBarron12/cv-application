@@ -1,6 +1,6 @@
 import {useState } from "react";
 import "../styles/resume.css"
-import { format } from "date-fns";
+import { format, isDate } from "date-fns";
 
 export function Resume({generalInput, educationInput}) {
     return (
@@ -27,20 +27,20 @@ export function Resume({generalInput, educationInput}) {
                                     return (
                                         <div key={edu.id} className="general-edu-container">
                                             <div className="edu-header">
-                                                <span className="edu-school">{edu.school + " — "}</span>
+                                                <span className="edu-school">{edu.school != undefined && edu.school != "" && edu.school + " — "}</span>
                                                 <em>
-                                                    {edu.degree + " in "}
-                                                    {edu.field}
+                                                    {edu.degree != undefined && edu.degree != "" && edu.degree + " in "}
+                                                    {edu.field != undefined && edu.field != "" && edu.field}
                                                 </em>
                                             </div>
                                             <div className="edu-info">
-                                                {edu.location + " | "}
-                                                {format(edu.startDate.month, 'MMM') + " " + format(edu.startDate.year, 'YYY') + " — "}
-                                                {format(edu.endDate.month, 'MMM') + " " + format(edu.endDate.year, 'YYY')}
+                                                {edu.location != undefined && edu.location != "" && edu.location + " | "}
+                                                {(edu.startDate != "" && edu.startDate != undefined) && (edu.startDate.month != undefined && edu.startDate.year != undefined) && format(edu.startDate.month, 'MMM') + " " + format(edu.startDate.year, 'yyy') + " — "}
+                                                {(edu.endDate != ""&& edu.endDate != undefined) && (edu.endDate.month != undefined && edu.endDate.year != undefined) && format(edu.endDate.month, 'MMM') + " " + format(edu.endDate.year, 'yyy')}
                                             </div>
                                             <ul className="edu-bullet-pts">
-                                                <li>GPA: {edu.grade}</li>
-                                                {edu.achievements.length != 0 &&
+                                                {edu.grade != undefined && edu.grade != "" && <Grade grade={edu.grade}/>}
+                                                {edu.achievements != undefined && edu.achievements != "" && edu.achievements.length != 0 &&
                                                     edu.achievements.map((ach) => {
                                                     return (
                                                         <li key={ach.id}>{ach.achievement}</li>
@@ -54,5 +54,11 @@ export function Resume({generalInput, educationInput}) {
                         </div>}
                     </div>
         </div>
+    )
+}
+
+const Grade = (grade) => {
+    return (
+        <li>{"GPA: " + grade.grade}</li>
     )
 }
