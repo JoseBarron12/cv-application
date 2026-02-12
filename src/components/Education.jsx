@@ -9,6 +9,7 @@ function EducationSection({userEducation, setUserEducation}) {
     const [showSection, setShowSection] = useState(false);
     const [showAddBtn, setShowAddBtn] = useState(true);
     const [selectedEdu, setSelectedEdu] = useState(null);
+
     
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -40,7 +41,20 @@ function EducationSection({userEducation, setUserEducation}) {
                             setShowEducationForm(true);
                             setShowAddBtn(false);
                         }}>{input.school}</button>
-                        <button className="input-btn"><Icon path={mdiEyeOutline} className="link-icon" /></button>
+                        <button className="input-btn"><Icon path={mdiEyeOutline} className="link-icon" 
+                        onClick={() => {
+                            const arr = [...userEducation];
+                            const indexOfSelected = arr.findIndex((element) => {
+                                return element.id == input.id;
+                            });
+                            const showFlag = (arr[indexOfSelected].show == false) ? true: false;
+                            
+                            arr[indexOfSelected] = {
+                                ...arr[indexOfSelected],
+                                show: showFlag
+                            };
+                            setUserEducation(arr);
+                        }}/></button>
                     </div>
                 )
             })}

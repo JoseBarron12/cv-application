@@ -24,6 +24,7 @@ export function Resume({generalInput, educationInput}) {
                             <div className="general-edu-header">Education</div>
                             <div className="general-edu-containers">
                                 { educationInput.map((edu) => {
+                                    if(edu.show != false ) {
                                     return (
                                         <div key={edu.id} className="general-edu-container">
                                             <div className="edu-header">
@@ -48,7 +49,7 @@ export function Resume({generalInput, educationInput}) {
                                                 })}
                                             </ul>
                                         </div>
-                                    )
+                                    )}
                                 })}
                             </div>
                         </div>}
