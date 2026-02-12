@@ -9,7 +9,6 @@ function EducationSection({userEducation, setUserEducation}) {
     const [showSection, setShowSection] = useState(false);
     const [showAddBtn, setShowAddBtn] = useState(true);
     const [selectedEdu, setSelectedEdu] = useState(null);
-    const [currentId, setCurrentId] = useState(null);
     
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -48,8 +47,7 @@ function EducationSection({userEducation, setUserEducation}) {
             {showSection && showEducationForm && <EducationSectionForm 
             setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
             userEducation={userEducation} setUserEducation={setUserEducation} 
-            selectedEdu={selectedEdu} setSelectedEdu={setSelectedEdu}
-            currentId ={currentId} setCurrentId={setCurrentId}/>}
+            selectedEdu={selectedEdu} setSelectedEdu={setSelectedEdu}/>}
             {showSection && showAddBtn && <div className="button-container">
                 <button className="new-edu-btn"
                  type="button"
@@ -67,7 +65,7 @@ function EducationSection({userEducation, setUserEducation}) {
     )
 }
 
-function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation, selectedEdu, setSelectedEdu, currentId, setCurrentId}) {
+function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation, selectedEdu, setSelectedEdu}) {
     const [showAchievements, setShowAchievements] = useState(false);
     
     const defaultSchool = selectedEdu != null ? selectedEdu.school : "";
@@ -93,6 +91,9 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
 
     const defaultAchievements= selectedEdu != null ? selectedEdu.achievements: "";
     const [achievements, setAchievements] = useState(defaultAchievements);
+
+    const defaultCurrentId= selectedEdu != null ? selectedEdu.id: null;
+    const [currentId, setCurrentId] = useState(defaultCurrentId);
 
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -594,8 +595,9 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                 <button className="cancel-btn" type="button"
                 onClick={() =>
                     {
-                        if(currentId != null) {
+                        if(currentId != null && selectedEdu == null) {
                             const arr = [...userEducation];
+
                             setUserEducation(arr.filter((element) => {
                                 if(element.id != currentId) return element;
                             }));
@@ -630,22 +632,9 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                             setSelectedEdu(null);
                             setUserEducation(arr);
                         }
-                        else
-                        {
-                            setUserEducation([...userEducation, {
-                            school: schoolName,
-                            location: locationName,
-                            degree: degreeName,
-                            field: fieldName,
-                            grade: gradeValue,
-                            startDate: startDate,
-                            endDate: endDate,
-                            achievements: achievements,
-                            id: crypto.randomUUID()
-                            }]);
-                        }
                         setShowEducationForm(false);
                         setShowAddBtn(true);
+                        setCurrentId(null);
                     }}>
                     <Icon path={mdiContentSave} className="link-icon" />
                     Save
