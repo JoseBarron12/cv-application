@@ -129,7 +129,7 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                             setUserEducation(arr);
                         } else {
                             const newId = crypto.randomUUID();
-                            
+
                             setUserEducation([...userEducation, {
                             school: event.target.value,
                             location: locationName,
@@ -141,6 +141,7 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                             achievements: achievements,
                             id: newId
                             }]);
+
                             setCurrentId(newId);
                         }
                         
@@ -351,7 +352,7 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
             userEducation={userEducation} setUserEducation={setUserEducation} selectedEdu={selectedEdu} setSelectedEdu={setSelectedEdu}
             schoolName = {schoolName} locationName = {locationName} degreeName = {degreeName}
             fieldName = {fieldName} gradeValue = {gradeValue} startDate = {startDate} endDate = {endDate}
-            achievements = {achievements} />
+            achievements = {achievements} currentId={currentId} setCurrentId={setCurrentId}/>
         </form>
     )
 }
@@ -560,7 +561,7 @@ function EducationSectionFormAchievement({achievements, setAchievements, current
 
 function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm, 
     userEducation, setUserEducation, selectedEdu, setSelectedEdu, schoolName, locationName, degreeName, fieldName, gradeValue,
-    startDate, endDate, achievements}) {
+    startDate, endDate, achievements, currentId, setCurrentId}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button"
@@ -568,12 +569,21 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                     {
                         if(selectedEdu != null)
                         {
-                            const arr = userEducation;
+                            const arr = [...userEducation];
                             setUserEducation(arr.filter((element) => {
                                 if(element.id != selectedEdu.id) return element;
                             }));
                             setSelectedEdu(null);
                         }
+
+                        if(currentId != null) {
+                            const arr = [...userEducation];
+                            setUserEducation(arr.filter((element) => {
+                                if(element.id != currentId) return element;
+                            }));
+                            setCurrentId(null);
+                        }
+
                         setShowEducationForm(false);
                         setShowAddBtn(true);
                     }}> 
@@ -584,6 +594,13 @@ function EducationSectionFormBtns({ setShowAddBtn, setShowEducationForm,
                 <button className="cancel-btn" type="button"
                 onClick={() =>
                     {
+                        if(currentId != null) {
+                            const arr = [...userEducation];
+                            setUserEducation(arr.filter((element) => {
+                                if(element.id != currentId) return element;
+                            }));
+                            setCurrentId(null);
+                        }
                         setSelectedEdu(null);
                         setShowEducationForm(false);
                         setShowAddBtn(true);
