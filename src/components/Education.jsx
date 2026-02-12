@@ -97,10 +97,10 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
     const defaultGrade = selectedEdu != null ? selectedEdu.grade : "";
     const [gradeValue, setGradeValue] = useState(defaultGrade);
 
-    const defaultStartDate = selectedEdu != null ? selectedEdu.startDate : "";
+    const defaultStartDate = (selectedEdu != null && selectedEdu.startDate != undefined) ? selectedEdu.startDate : "";
     const [startDate, setStartDate] = useState(defaultStartDate);
     
-    const defaultEndDate = selectedEdu != null ? selectedEdu.endDate : "";
+    const defaultEndDate = (selectedEdu != null && selectedEdu.endDate != undefined) ? selectedEdu.endDate : "";
     const [endDate, setEndDate] = useState(defaultEndDate);
 
     const defaultAchievements= selectedEdu != null ? selectedEdu.achievements: "";
@@ -360,7 +360,7 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     {showAchievements && <Icon path={mdiMinus} className="link-icon plus-icon" />}
                 </button>
                 {showAchievements && <EducationSectionFormAchievement achievements={achievements} setAchievements={setAchievements} currentId={currentId} setCurrentId={setCurrentId}
-                    userEducation={userEducation} setUserEducation={setUserEducation}/>}
+                    userEducation={userEducation} setUserEducation={setUserEducation} />}
             </div>
             <EducationSectionFormBtns 
             setShowEducationForm={setShowEducationForm} setShowAddBtn={setShowAddBtn}
@@ -539,12 +539,41 @@ function EducationSectionFormAchievement({achievements, setAchievements, current
                     <button className="add-achievement"
                     onClick = {(event) => {
                         event.preventDefault();
-                        setAchievements([...achievements, {
+                        
+                        // When making a state change that changes multiple states that can change
+                        // from it, create one variable and use it for each to make state change all
+                        // at once rather than changing state with another state. WILL AVOID THE
+                        // ONE BEHIND ISSUE
+                        
+                        const newAchievement = [...achievements, {
                             achievement: currentAchievement,
                             id: crypto.randomUUID()
-                        }])
+                        }];
+                        
+                        setAchievements(newAchievement);
                         setCurrentAchievement("");
                         
+                        if(currentId != null)
+                        {
+                            const arr = [...userEducation];
+                            const indexOfSelected = arr.findIndex((element) => {
+                                return element.id == currentId;
+                            });
+                            arr[indexOfSelected] = {
+                                ...arr[indexOfSelected],
+                                achievements: newAchievement,
+                                id: currentId
+                            };
+                            setUserEducation(arr);
+                        } else {
+                            const newId = crypto.randomUUID();
+                            setUserEducation([...userEducation, {
+                            achievements: newAchievement,
+                            id: newId
+                            }]);
+                            setCurrentId(newId);
+                        }
+
                     }}>
                     <Icon path={mdiContentSave} className="link-icon"/>
                         Save Achievement
@@ -562,10 +591,34 @@ function EducationSectionFormAchievement({achievements, setAchievements, current
                         <button className="achievement-btn"><Icon path={mdiEyeOutline} className="link-icon"/></button>
                         <button className="achievement-btn"><Icon path={mdiDelete} className="link-icon delete-icon"
                         onClick={() => {
-                            const arr = [...achievements];
-                            setAchievements(arr.filter((element) => {
+                            const arr = [...achievements].filter((element) => {
                                 if(element.id != achievement.id) return element;
-                            }))
+                            });
+                            
+                            if(currentId != null)
+                            {
+                                const tempArr = [...userEducation];
+                                const indexOfSelected = tempArr.findIndex((element) => {
+                                    return element.id == currentId;
+                                });
+                                tempArr[indexOfSelected] = {
+                                    ...tempArr[indexOfSelected],
+                                    achievements: arr,
+                                    id: currentId
+                                };
+                                setUserEducation(tempArr);
+                            } else {
+                                const newId = crypto.randomUUID();
+                                setUserEducation([...userEducation, {
+                                achievements: arr,
+                                id: newId
+                                }]);
+                                setCurrentId(newId);
+                            }
+                            
+                            setAchievements(arr);
+
+
                         }}/></button>
                     </div>
                 )
