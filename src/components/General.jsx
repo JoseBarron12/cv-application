@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/general.css"
 import Icon from '@mdi/react';
-import { mdiAccount } from '@mdi/js';
+import { mdiAccount, mdiClose } from '@mdi/js';
 import { mdiChevronDown,mdiChevronUp, mdiPlus, mdiMinus } from '@mdi/js';
 
 function GeneralSection({generalInput, setGeneralInput}) {
@@ -47,29 +47,71 @@ function GeneralSection({generalInput, setGeneralInput}) {
     )
 }
 
+function GeneralInput({type, name, id, initialValue, callBack, userInput,}) {
+    const [currentValue, setCurrentValue] = useState(initialValue);
+    const [displayX, setDisplayX] = useState(false);
+
+    return (
+        <div>
+            <input type={type} name={name} id={id} value={currentValue} 
+            onChange={(event) => {
+                    event.preventDefault();
+                    
+                    if(type == "text") {
+                        callBack({...userInput, name: event.target.value})
+                    } else if(type == "email") {
+                        callBack({...userInput, email: event.target.value})
+                    } else if(type == "tel") {
+                        callBack({...userInput, number: event.target.value})
+                    }
+
+                    setCurrentValue(event.target.value);
+                    setDisplayX(true);
+                    
+            }}/>
+            {displayX && <ResetBtn callBack={callBack} setCurrentValue={setCurrentValue} setDisplayX={setDisplayX} userInput={userInput} type={type}/>}
+        </div>
+
+    )
+}
+
+function ResetBtn({callBack, setCurrentValue, setDisplayX, userInput, type}) {
+    return (
+        <button type="button"  onClick={(event) => {
+            event.preventDefault()
+            
+            if(type == "text") {
+                callBack({...userInput, name: ""})
+            } else if(type == "email") {
+                callBack({...userInput, email: ""})
+            } else if(type == "tel") {
+                callBack({...userInput, number: ""})
+            }
+
+            setCurrentValue("");
+            setDisplayX(false);
+        }}><Icon path={mdiClose} className="close-icon" />
+        </button>
+    )
+}
+
 function GeneralSectionForm({userInput, callBack}) {
     return (
         <form className="general-info">
             <div className="input-field">
                 <label htmlFor="general-name">Full Name</label>
-                <input type="text" name="general-name" id="general-name" 
-                value={userInput.name} onChange={(event) => {
-                    callBack({...userInput, name: event.target.value})
-                }}/>
+                <GeneralInput type={"text"} name={"general-name"} 
+                id={"general-name"} callBack={callBack} userInput={userInput} />
             </div>
             <div className="input-field">
                 <label htmlFor="general-email">Email</label>
-                <input type="email" name="general-email" id="general-email" 
-                 value={userInput.email} onChange={(event) => {
-                    callBack({...userInput, email: event.target.value})
-                }}/>
+                <GeneralInput type={"email"} name={"general-email"} 
+                id={"general-email"} callBack={callBack} userInput={userInput}/>
             </div>
             <div className="input-field">
                 <label htmlFor="general-phone">Phone Number</label>
-                <input type="tel" name="general-phone" id="general-phone" 
-                value={userInput.number} onChange={(event) => {
-                    callBack({...userInput, number: event.target.value})
-                }}/>
+                <GeneralInput type={"tel"} name={"general-phone"} 
+                id={"general-phone"} callBack={callBack} userInput={userInput}/>
             </div>
         </form>
     )
