@@ -1,17 +1,19 @@
-import {useState } from "react";
+import {use, useState } from "react";
 import { GeneralSection} from './General.jsx'
 import { EducationSection } from './Education.jsx'
 import { ExperienceSection} from "./Experience.jsx";
 import "../styles/main.css"
 import { Resume } from "./resume.jsx";
 import { SummarySection } from "./Summary.jsx";
+import { SkillsSection } from "./Skills.jsx";
 
 export function MainSection() {
     const [generalInput, setGeneralInput] = useState({});
     const [educationInput, setEducationInput] = useState([]);
     const [jobInput, setJobInput] = useState([]);
     const [summaryInput, setSummaryInput] = useState({});
-    
+    const [skillsInput, setSkillsInput] = useState([]);
+
     return(
         <main>
             <div className="form-section">
@@ -19,6 +21,7 @@ export function MainSection() {
                 <EducationSection userEducation={educationInput} setUserEducation={setEducationInput}/>
                 <ExperienceSection userJob={jobInput} setUserJob={setJobInput}/>
                 <SummarySection userSummary={summaryInput} setUserSummary={setSummaryInput}/>
+                <SkillsSection userSkill={skillsInput} setUserSkill={setSkillsInput}/>
             </div>
             <div className="preview-section">
                 <Resume generalInput={generalInput} educationInput={educationInput} />
