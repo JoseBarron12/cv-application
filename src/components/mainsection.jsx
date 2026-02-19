@@ -1,17 +1,22 @@
 import {useState } from "react";
 import { GeneralSection} from './General.jsx'
 import { EducationSection } from './Education.jsx'
+import { ExperienceSection} from "./Experience.jsx";
 import "../styles/main.css"
 import { Resume } from "./resume.jsx";
 
 export function MainSection() {
     const [generalInput, setGeneralInput] = useState({});
     const [educationInput, setEducationInput] = useState([]);
+    const [jobInput, setJobInput] = useState([]);
+    
+    
     return(
         <main>
             <div className="form-section">
                 <GeneralSection generalInput={generalInput} setGeneralInput={setGeneralInput}/>
                 <EducationSection userEducation={educationInput} setUserEducation={setEducationInput}/>
+                <ExperienceSection userJob={jobInput} setUserJob={setJobInput}/>
             </div>
             <div className="preview-section">
                 <Resume generalInput={generalInput} educationInput={educationInput} />
