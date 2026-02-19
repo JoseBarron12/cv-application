@@ -132,7 +132,7 @@ function GeneralInput({type, name, id, initialValue, callBack, currentId, setCur
     
     const [currentValue, setCurrentValue] = useState(initialValue);
     
-    const showX = (currentId != null && currentValue != "") ? true : false;
+    const showX = (currentId != null && initialValue != "") ? true : false;
     
     const [displayX, setDisplayX] = useState(showX);
     return (
@@ -175,7 +175,6 @@ function ResetBtn({setCurrentValue, setDisplayX, currentId, setCurrentId, userEd
         </button>
     )
 }
-
 
 
 function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation, selectedEdu, setSelectedEdu}) {
@@ -247,14 +246,14 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                          endDate={endDate} achievements={achievements} callBack={setFieldName}
                     />
                 </div>
-                <div className="input-field">
+                <div className="input-field-date">
                     <label htmlFor="start-date">Start date</label>
                     <EducationSectionFormDate isStart={true} idName={"start-date"}
                     currentDate={startDate} setCurrentDate={setStartDate} currentId={currentId} setCurrentId={setCurrentId}
                     userEducation={userEducation} setUserEducation={setUserEducation}
                     />
                 </div>
-                <div className="input-field">
+                <div className="input-field-date">
                     <label htmlFor="end-date">End date</label>
                     <EducationSectionFormDate isStart={false} idName={"end-date"}
                     currentDate={endDate} setCurrentDate={setEndDate}  currentId={currentId} setCurrentId={setCurrentId}
@@ -306,12 +305,80 @@ function EducationSectionFormDate({isStart, idName, currentDate, setCurrentDate,
     });
 
     return (
-        <div className="date-field">
-            <select name="months" id={"month-" + idName}
-             value={currentDate.month}
-             onChange={(event) => {
-                setCurrentDate({...currentDate, month: event.target.value});
-                if(currentId != null)
+        <div>
+            <div className="date-field">
+                <select name="months" id={"month-" + idName}
+                 value={currentDate.month}
+                 onChange={(event) => {
+                    setCurrentDate({...currentDate, month: event.target.value});
+                    if(currentId != null)
+                            {
+                                const arr = [...userEducation];
+                                const indexOfSelected = arr.findIndex((element) => {
+                                    return element.id == currentId;
+                                });
+                                if(isStart)
+                                {
+                                    arr[indexOfSelected] = {
+                                    ...arr[indexOfSelected],
+                                    startDate: {...currentDate, month: event.target.value}
+                                    };
+                                    setUserEducation(arr);
+                                } else {
+                                    arr[indexOfSelected] = {
+                                    ...arr[indexOfSelected],
+                                    endDate: {...currentDate, month: event.target.value}
+                                    };
+                                    setUserEducation(arr);
+                                }
+            
+            
+                            } else {
+                                const newId = crypto.randomUUID();
+                                if(isStart)
+                                {
+                                    setUserEducation([...userEducation, {
+                                    school: schoolName,
+                                    location: locationName,
+                                    degree: degreeName,
+                                    field: fieldName,
+                                    grade: gradeValue,
+                                    endDate: endDate,
+                                    achievements: achievements,
+                                    startDate: {...currentDate, month: event.target.value},
+                                    id: newId
+                                    }]);
+                                    setCurrentId(newId);
+                                } else {
+                                    setUserEducation([...userEducation, {
+                                     school: schoolName,
+                                    location: locationName,
+                                    degree: degreeName,
+                                    field: fieldName,
+                                    grade: gradeValue,
+                                    startDate: startDate,
+                                    achievements: achievements,
+                                    endDate: {...currentDate, month: event.target.value},
+                                    id: newId
+                                    }]);
+                                    setCurrentId(newId);
+                                }
+                            }
+                 }}>
+                   <option value={-1}>Month</option>
+                   {months.map((month, index) => {
+                        return (
+                            <option value={month} key={index}>
+                                {format(month, 'MMMM')}
+                            </option>
+                        )
+                   })}
+                </select>
+                <select name="years" id={"year-" + idName}
+                value={currentDate.year}
+                 onChange={(event) => {
+                    setCurrentDate({...currentDate, year: event.target.value});
+                    if(currentId != null)
                         {
                             const arr = [...userEducation];
                             const indexOfSelected = arr.findIndex((element) => {
@@ -321,18 +388,16 @@ function EducationSectionFormDate({isStart, idName, currentDate, setCurrentDate,
                             {
                                 arr[indexOfSelected] = {
                                 ...arr[indexOfSelected],
-                                startDate: {...currentDate, month: event.target.value}
+                                startDate: {...currentDate, year: event.target.value}
                                 };
                                 setUserEducation(arr);
                             } else {
                                 arr[indexOfSelected] = {
                                 ...arr[indexOfSelected],
-                                endDate: {...currentDate, month: event.target.value}
-                                };
+                                endDate: {...currentDate, year: event.target.value}
+                                    };
                                 setUserEducation(arr);
                             }
-                            
-                            
                         } else {
                             const newId = crypto.randomUUID();
                             if(isStart)
@@ -345,101 +410,36 @@ function EducationSectionFormDate({isStart, idName, currentDate, setCurrentDate,
                                 grade: gradeValue,
                                 endDate: endDate,
                                 achievements: achievements,
-                                startDate: {...currentDate, month: event.target.value},
+                                startDate: {...currentDate, year: event.target.value},
                                 id: newId
                                 }]);
-                                setCurrentId(newId);    
+                                setCurrentId(newId);
                             } else {
                                 setUserEducation([...userEducation, {
-                                 school: schoolName,
+                                school: schoolName,
                                 location: locationName,
                                 degree: degreeName,
                                 field: fieldName,
                                 grade: gradeValue,
                                 startDate: startDate,
                                 achievements: achievements,
-                                endDate: {...currentDate, month: event.target.value},
+                                endDate: {...currentDate, year: event.target.value},
                                 id: newId
                                 }]);
                                 setCurrentId(newId);
                             }
                         }
-             }}>
-               <option value={-1}>Month</option>
-               {months.map((month, index) => {
-                    return (
-                        <option value={month} key={index}>
-                            {format(month, 'MMMM')}
-                        </option>
-                    )
-               })} 
-            </select>
-            <select name="years" id={"year-" + idName}
-            value={currentDate.year}
-             onChange={(event) => {
-                setCurrentDate({...currentDate, year: event.target.value});
-
-                if(currentId != null)
-                    {
-                        const arr = [...userEducation];
-                        const indexOfSelected = arr.findIndex((element) => {
-                            return element.id == currentId;
-                        });
-                        if(isStart)
-                        {
-                            arr[indexOfSelected] = {
-                            ...arr[indexOfSelected],
-                            startDate: {...currentDate, year: event.target.value}
-                            };
-                            setUserEducation(arr);
-                        } else {
-                            arr[indexOfSelected] = {
-                            ...arr[indexOfSelected],
-                            endDate: {...currentDate, year: event.target.value}
-                                };
-                            setUserEducation(arr);
-                        }   
-                    } else {
-                        const newId = crypto.randomUUID();
-                        if(isStart)
-                        {
-                            setUserEducation([...userEducation, {
-                            school: schoolName,
-                            location: locationName,
-                            degree: degreeName,
-                            field: fieldName,
-                            grade: gradeValue,
-                            endDate: endDate,
-                            achievements: achievements,
-                            startDate: {...currentDate, year: event.target.value},
-                            id: newId
-                            }]);
-                            setCurrentId(newId);    
-                        } else {
-                            setUserEducation([...userEducation, {
-                            school: schoolName,
-                            location: locationName,
-                            degree: degreeName,
-                            field: fieldName,
-                            grade: gradeValue,
-                            startDate: startDate,
-                            achievements: achievements,
-                            endDate: {...currentDate, year: event.target.value},
-                            id: newId
-                            }]);
-                            setCurrentId(newId);
-                        }
-                    }
-             }}>
-               <option value={-1}>Year</option>
-               {years.map((year, index) => {
-                    return (
-                        <option value={year} key={index}>
-                            {format(year, 'yyyy')}
-                        </option>
-                    )
-               })} 
-            </select>
+                 }}>
+                   <option value={-1}>Year</option>
+                   {years.map((year, index) => {
+                        return (
+                            <option value={year} key={index}>
+                                {format(year, 'yyyy')}
+                            </option>
+                        )
+                   })}
+                </select>
+            </div>
         </div>
     )
 }
@@ -496,10 +496,12 @@ function EducationSectionFormAchievement({achievements, setAchievements, current
                         Save Achievement
                     </button>
                 </label>
-                <input type="text" name="achievement-info" id="achievement-info" value={currentAchievement}
-                 onChange={(event) => {
-                    setCurrentAchievement(event.target.value);
-                     }}/>
+                <div>
+                    <input type="text" name="achievement-info" id="achievement-info" value={currentAchievement}
+                     onChange={(event) => {
+                        setCurrentAchievement(event.target.value);
+                         }}/>
+                </div>
             </div>
             { achievements.length != 0 &&  achievements.map((achievement) => {
                 return (
