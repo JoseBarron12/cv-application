@@ -63,6 +63,10 @@ function GeneralInput({type, name, id, initialValue, callBack, userInput,}) {
                         callBack({...userInput, email: event.target.value})
                     } else if(type == "tel") {
                         callBack({...userInput, number: event.target.value})
+                    } else if(type == "linkedin") {
+                        callBack({...userInput, linkedIn: event.target.value})
+                    } else if(type == "github") {
+                        callBack({...userInput, github: event.target.value})
                     }
 
                     setCurrentValue(event.target.value);
@@ -86,7 +90,12 @@ function ResetBtn({callBack, setCurrentValue, setDisplayX, userInput, type}) {
                 callBack({...userInput, email: ""})
             } else if(type == "tel") {
                 callBack({...userInput, number: ""})
+            } else if(type == "linkedin") {
+                callBack({...userInput, linkedIn: ""})
+            } else if(type == "github") {
+                callBack({...userInput, github: ""})
             }
+
 
             setCurrentValue("");
             setDisplayX(false);
@@ -129,10 +138,8 @@ function GeneralSectionFormLinks({userInput, callBack}) {
                     return (
                     <div className="input-field" key={userInput.id + index}>
                         <label htmlFor={"general-link-" + link.toLocaleLowerCase()}>{link}</label>
-                        <input type="url" name={"general-link-" + link.toLocaleLowerCase()} id={"general-link-" + link.toLocaleLowerCase()}
-                        value={userInput.linkedIn} onChange={(event) => {
-                            callBack({...userInput, linkedIn: event.target.value})
-                        }}/>
+                        <GeneralInput type={link.toLocaleLowerCase()} name={"general-link-" + link.toLocaleLowerCase()} 
+                        id={"general-link-" + link.toLocaleLowerCase()} callBack={callBack} userInput={userInput}/>
                     </div> 
                     )
                 }
@@ -140,10 +147,8 @@ function GeneralSectionFormLinks({userInput, callBack}) {
                      return (
                     <div className="input-field" key={userInput.id + index}>
                         <label htmlFor={"general-link-" + link.toLocaleLowerCase()}>{link}</label>
-                        <input type="url" name={"general-link-" + link.toLocaleLowerCase()} id={"general-link-" + link.toLocaleLowerCase()}
-                        value={userInput.github} onChange={(event) => {
-                            callBack({...userInput, github: event.target.value})
-                        }}/>
+                        <GeneralInput type={link.toLocaleLowerCase()} name={"general-link-" + link.toLocaleLowerCase()} 
+                        id={"general-link-" + link.toLocaleLowerCase()} callBack={callBack} userInput={userInput}/>
                     </div> 
                     )
                 }
