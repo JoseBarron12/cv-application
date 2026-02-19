@@ -1,7 +1,7 @@
 import { useActionState, useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiEyeOutline} from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiEyeOutline, mdiClose} from '@mdi/js';
 import "../styles/education.css"
 
 function EducationSection({userEducation, setUserEducation}) {
@@ -80,7 +80,7 @@ function EducationSection({userEducation, setUserEducation}) {
 }
 
 
-const processGeneralInput = (currentId, setCurrentId, userEducation, setUserEducation, type, event,
+const processGeneralInput = (currentId, setCurrentId, userEducation, setUserEducation, type, value,
     schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements) => {    
         if(currentId != null)
             {
@@ -100,7 +100,7 @@ const processGeneralInput = (currentId, setCurrentId, userEducation, setUserEduc
                     achievements: achievements,
                     id: currentId
                 };
-                arr[indexOfSelected][type] = event.target.value;
+                arr[indexOfSelected][type] = value;
                     
                 setUserEducation(arr);
 
@@ -118,7 +118,7 @@ const processGeneralInput = (currentId, setCurrentId, userEducation, setUserEduc
                     achievements: achievements,
                     id: newId
                 }
-                newEduObj[type] = event.target.value;
+                newEduObj[type] = value;
 
                 setUserEducation([...userEducation, {
                     ...newEduObj
@@ -127,6 +127,56 @@ const processGeneralInput = (currentId, setCurrentId, userEducation, setUserEduc
                 setCurrentId(newId);
             }
 }   
+
+function GeneralInput({type, name, id, initialValue, callBack, currentId, setCurrentId, userEducation, setUserEducation,schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements}) {
+    
+    const [currentValue, setCurrentValue] = useState(initialValue);
+    
+    const showX = (currentId != null && currentValue != "") ? true : false;
+    
+    const [displayX, setDisplayX] = useState(showX);
+    return (
+        <div>
+            <input type={type} name={name + "name"} id={id + "name"} value={currentValue} 
+            onChange={(event) => {
+                    event.preventDefault();
+                    
+                    callBack(event.target.value);
+
+                    processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, name, event.target.value,
+                    schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements)
+
+                    setCurrentValue(event.target.value);
+                    setDisplayX(true);
+                    
+            }}/>
+            {displayX && <ResetBtn callBack={callBack} setCurrentValue={setCurrentValue} setDisplayX={setDisplayX} 
+            currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation}
+            name={name} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName}
+            gradeValue={gradeValue} startDate={startDate} endDate={endDate} achievements={achievements}/>}
+        </div>
+
+    )
+}
+
+function ResetBtn({setCurrentValue, setDisplayX, currentId, setCurrentId, userEducation, setUserEducation, name,
+    schoolName,locationName, degreeName, fieldName, gradeValue, startDate, endDate, achievements, callBack}) {
+    return (
+        <button type="button"  onClick={(event) => {
+            event.preventDefault()
+            
+            callBack(event.target.value);
+            processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, name, "",
+                schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements)
+            
+            setCurrentValue("");
+            setDisplayX(false);
+        }}><Icon path={mdiClose} className="close-icon" />
+        </button>
+    )
+}
+
+
 
 function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation, selectedEdu, setSelectedEdu}) {
     const [showAchievements, setShowAchievements] = useState(false);
@@ -168,42 +218,34 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                 <legend>School Information</legend>
                 <div className="input-field">
                     <label htmlFor="school-name">School</label>
-                    <input type="text" name="school-name" id="school-name" 
-                     value={schoolName} onChange={(event) => {
-                        setSchoolName(event.target.value);
-                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "school", event,
-                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);   
-                     }}/>
+                    <GeneralInput name={"school"} id={"school"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
+                         initialValue={schoolName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
+                         endDate={endDate} achievements={achievements} callBack={setSchoolName}
+                    />
                 </div>
                 <div className="input-field">
                     <label htmlFor="location-name">Location</label>
-                    <input type="text" name="location-name" id="location-name" 
-                     value={locationName} onChange={(event) => {
-                        setLocationName(event.target.value);
-                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "location", event,
-                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
-                     }}/>
+                    <GeneralInput name={"location"} id={"location"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
+                         initialValue={locationName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
+                         endDate={endDate} achievements={achievements} callBack={setLocationName}
+                    />
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Degree Information</legend>
                 <div className="input-field">
                     <label htmlFor="degree-name">Degree</label>
-                    <input type="text" name="degree-name" id="degree-name" 
-                     value={degreeName} onChange={(event) => {
-                        setDegreeName(event.target.value);
-                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "degree", event,
-                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
-                     }}/>
+                    <GeneralInput name={"degree"} id={"degree"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
+                         initialValue={degreeName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
+                         endDate={endDate} achievements={achievements} callBack={setDegreeName}
+                    />
                 </div>
                 <div className="input-field">
-                    <label htmlFor="study-name">Field of study</label>
-                    <input type="text" name="study-name" id="study-name"
-                     value={fieldName} onChange={(event) => {
-                        setFieldName(event.target.value);
-                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "field", event,
-                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
-                     }}/>
+                    <label htmlFor="field-name">Field of study</label>
+                    <GeneralInput name={"field"} id={"field"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
+                         initialValue={fieldName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
+                         endDate={endDate} achievements={achievements} callBack={setFieldName}
+                    />
                 </div>
                 <div className="input-field">
                     <label htmlFor="start-date">Start date</label>
@@ -219,13 +261,11 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     userEducation={userEducation} setUserEducation={setUserEducation}/>
                 </div>
                 <div className="input-field">
-                    <label htmlFor="grade-info">GPA</label>
-                    <input type="text" name="grade-info" id="grade-info"
-                     value={gradeValue} onChange={(event) => {
-                        setGradeValue(event.target.value);
-                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "grade", event,
-                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
-                     }}/>
+                    <label htmlFor="grade-name">GPA</label>
+                    <GeneralInput name={"grade"} id={"grade"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
+                         initialValue={gradeValue} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
+                         endDate={endDate} achievements={achievements} callBack={setGradeValue}
+                    />
                 </div>
             </fieldset>
             <div className="additional-achievement-section">
