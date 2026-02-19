@@ -7,6 +7,7 @@ import { Resume } from "./resume.jsx";
 import { SummarySection } from "./Summary.jsx";
 import { SkillsSection } from "./Skills.jsx";
 import { ProjectSection } from "./project.jsx";
+import { NewSection } from "./new.jsx";
 
 export function MainSection() {
     const [generalInput, setGeneralInput] = useState({});
@@ -15,6 +16,7 @@ export function MainSection() {
     const [summaryInput, setSummaryInput] = useState({});
     const [skillsInput, setSkillsInput] = useState([]);
     const [projectInput, setProjectInput] = useState([]);
+    const [sectionInput, setSectionInput] = useState([]);
 
     return(
         <main>
@@ -25,6 +27,7 @@ export function MainSection() {
                 <SummarySection userSummary={summaryInput} setUserSummary={setSummaryInput}/>
                 <SkillsSection userSkill={skillsInput} setUserSkill={setSkillsInput}/>
                 <ProjectSection userProject={projectInput} setUserProject={projectInput}/>
+                <NewSection userSection={sectionInput} setUserSection={setSectionInput}/>
             </div>
             <div className="preview-section">
                 <Resume generalInput={generalInput} educationInput={educationInput} />

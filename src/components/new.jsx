@@ -1,0 +1,33 @@
+import { useState } from "react";
+import Icon from '@mdi/react';
+import { mdiNotePlus, mdiPlus } from '@mdi/js';
+import "../styles/new.css"
+
+export function NewSection({userSection, setUserSection}) {
+    const [showLink, setShowLink] = useState(false);
+    const [showSection, setShowSection] = useState(false);
+    
+    const onBtnClick = (currentView) => () => {
+        const newView = currentView ? false : true;
+        setShowLink(newView);
+    }
+
+    const showSectionBtn = (currentView) => () => {
+        const newView = currentView ? false : true;
+        setShowSection(newView);
+    }
+    
+    return (
+        <section className="create-section">
+            <button className="header-section" type="button">
+                <div>
+                    <Icon path={mdiNotePlus} className="header-icon" />
+                    <h2>Create New Section</h2>
+                </div>
+                <div type="button" onClick={showSectionBtn(showSection)}>
+                    <Icon path={mdiPlus } className="header-icon" />
+                </div>
+            </button>
+        </section>
+    )
+}
