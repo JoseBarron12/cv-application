@@ -79,6 +79,55 @@ function EducationSection({userEducation, setUserEducation}) {
     )
 }
 
+
+const processGeneralInput = (currentId, setCurrentId, userEducation, setUserEducation, type, event,
+    schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements) => {    
+        if(currentId != null)
+            {
+                const arr = [...userEducation];
+                const indexOfSelected = arr.findIndex((element) => {
+                    return element.id == currentId;
+                });
+               
+                arr[indexOfSelected] = {
+                    school: schoolName,
+                    location: locationName,
+                    degree: degreeName,
+                    field: fieldName,
+                    grade: gradeValue,
+                    startDate: startDate,
+                    endDate: endDate,
+                    achievements: achievements,
+                    id: currentId
+                };
+                arr[indexOfSelected][type] = event.target.value;
+                    
+                setUserEducation(arr);
+
+            } else {
+                const newId = crypto.randomUUID();
+
+                const newEduObj = {
+                    school: schoolName,
+                    location: locationName,
+                    degree: degreeName,
+                    field: fieldName,
+                    grade: gradeValue,
+                    startDate: startDate,
+                    endDate: endDate,
+                    achievements: achievements,
+                    id: newId
+                }
+                newEduObj[type] = event.target.value;
+
+                setUserEducation([...userEducation, {
+                    ...newEduObj
+                }]);
+
+                setCurrentId(newId);
+            }
+}   
+
 function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation, selectedEdu, setSelectedEdu}) {
     const [showAchievements, setShowAchievements] = useState(false);
     
@@ -121,45 +170,9 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     <label htmlFor="school-name">School</label>
                     <input type="text" name="school-name" id="school-name" 
                      value={schoolName} onChange={(event) => {
-                        
                         setSchoolName(event.target.value);
-                        
-                        if(currentId != null)
-                        {
-                            const arr = [...userEducation];
-                            const indexOfSelected = arr.findIndex((element) => {
-                                return element.id == currentId;
-                            });
-                            arr[indexOfSelected] = {
-                                school: event.target.value,
-                                location: locationName,
-                                degree: degreeName,
-                                field: fieldName,
-                                grade: gradeValue,
-                                startDate: startDate,
-                                endDate: endDate,
-                                achievements: achievements,
-                                id: currentId
-                            };
-                            setUserEducation(arr);
-                        } else {
-                            const newId = crypto.randomUUID();
-
-                            setUserEducation([...userEducation, {
-                            school: event.target.value,
-                            location: locationName,
-                            degree: degreeName,
-                            field: fieldName,
-                            grade: gradeValue,
-                            startDate: startDate,
-                            endDate: endDate,
-                            achievements: achievements,
-                            id: newId
-                            }]);
-
-                            setCurrentId(newId);
-                        }
-                        
+                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "school", event,
+                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);   
                      }}/>
                 </div>
                 <div className="input-field">
@@ -167,42 +180,8 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     <input type="text" name="location-name" id="location-name" 
                      value={locationName} onChange={(event) => {
                         setLocationName(event.target.value);
-
-                        if(currentId != null)
-                        {
-                            const arr = [...userEducation];
-                            const indexOfSelected = arr.findIndex((element) => {
-                                return element.id == currentId;
-                            });
-                            arr[indexOfSelected] = {
-                                school: schoolName,
-                                location: event.target.value,
-                                degree: degreeName,
-                                field: fieldName,
-                                grade: gradeValue,
-                                startDate: startDate,
-                                endDate: endDate,
-                                achievements: achievements,
-                                id: currentId
-                            };
-                            setUserEducation(arr);
-                        } else {
-                            const newId = crypto.randomUUID();
-                            
-                            setUserEducation([...userEducation, {
-                            school: schoolName,
-                            location: event.target.value,
-                            degree: degreeName,
-                            field: fieldName,
-                            grade: gradeValue,
-                            startDate: startDate,
-                            endDate: endDate,
-                            achievements: achievements,
-                            id: newId
-                            }]);
-                            setCurrentId(newId);
-                        }
-
+                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "location", event,
+                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
                      }}/>
                 </div>
             </fieldset>
@@ -213,42 +192,8 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     <input type="text" name="degree-name" id="degree-name" 
                      value={degreeName} onChange={(event) => {
                         setDegreeName(event.target.value);
-
-                        if(currentId != null)
-                        {
-                            const arr = [...userEducation];
-                            const indexOfSelected = arr.findIndex((element) => {
-                                return element.id == currentId;
-                            });
-                            arr[indexOfSelected] = {
-                                school: schoolName,
-                                location: locationName,
-                                degree: event.target.value,
-                                field: fieldName,
-                                grade: gradeValue,
-                                startDate: startDate,
-                                endDate: endDate,
-                                achievements: achievements,
-                                id: currentId
-                            };
-                            setUserEducation(arr);
-                        } else {
-                            const newId = crypto.randomUUID();
-                            
-                            setUserEducation([...userEducation, {
-                            school: schoolName,
-                            location: locationName,
-                            degree: event.target.value,
-                            field: fieldName,
-                            grade: gradeValue,
-                            startDate: startDate,
-                            endDate: endDate,
-                            achievements: achievements,
-                            id: newId
-                            }]);
-                            setCurrentId(newId);
-                        }
-
+                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "degree", event,
+                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
                      }}/>
                 </div>
                 <div className="input-field">
@@ -256,42 +201,8 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     <input type="text" name="study-name" id="study-name"
                      value={fieldName} onChange={(event) => {
                         setFieldName(event.target.value);
-
-                        if(currentId != null)
-                        {
-                            const arr = [...userEducation];
-                            const indexOfSelected = arr.findIndex((element) => {
-                                return element.id == currentId;
-                            });
-                            arr[indexOfSelected] = {
-                                school: schoolName,
-                                location: locationName,
-                                degree: degreeName,
-                                field: event.target.value,
-                                grade: gradeValue,
-                                startDate: startDate,
-                                endDate: endDate,
-                                achievements: achievements,
-                                id: currentId
-                            };
-                            setUserEducation(arr);
-                        } else {
-                            const newId = crypto.randomUUID();
-                            
-                            setUserEducation([...userEducation, {
-                            school: schoolName,
-                            location: locationName,
-                            degree: degreeName,
-                            field: event.target.value,
-                            grade: gradeValue,
-                            startDate: startDate,
-                            endDate: endDate,
-                            achievements: achievements,
-                            id: newId
-                            }]);
-                            setCurrentId(newId);
-                        }
-
+                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "field", event,
+                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
                      }}/>
                 </div>
                 <div className="input-field">
@@ -312,42 +223,8 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     <input type="text" name="grade-info" id="grade-info"
                      value={gradeValue} onChange={(event) => {
                         setGradeValue(event.target.value);
-
-                        if(currentId != null)
-                        {
-                            const arr = [...userEducation];
-                            const indexOfSelected = arr.findIndex((element) => {
-                                return element.id == currentId;
-                            });
-                            arr[indexOfSelected] = {
-                                school: schoolName,
-                                location: locationName,
-                                degree: degreeName,
-                                field: fieldName,
-                                grade: event.target.value,
-                                startDate: startDate,
-                                endDate: endDate,
-                                achievements: achievements,
-                                id: currentId
-                            };
-                            setUserEducation(arr);
-                        } else {
-                            const newId = crypto.randomUUID();
-                            
-                            setUserEducation([...userEducation, {
-                            school: schoolName,
-                            location: locationName,
-                            degree: degreeName,
-                            field: fieldName,
-                            grade: event.target.value,
-                            startDate: startDate,
-                            endDate: endDate,
-                            achievements: achievements,
-                            id: newId
-                            }]);
-                            setCurrentId(newId);
-                        }
-
+                        processGeneralInput(currentId, setCurrentId, userEducation, setUserEducation, "grade", event,
+                        schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements);
                      }}/>
                 </div>
             </fieldset>
