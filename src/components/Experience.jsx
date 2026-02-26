@@ -36,7 +36,8 @@ export function ExperienceSection({userExp, setUserExp}) {
                     <Icon path={mdiChevronUp} className="header-icon" />
                 </button>}
             </div>
-            {showSection && showExpForm && <ExperienceSectionForm/>}
+            {showSection && showExpForm && <ExperienceSectionForm showSection={showSection} setShowSection={setShowSection}
+            userExp={userExp} setUserExp={setUserExp} setShowAddbtn={setShowAddBtn} setShowExpForm={setShowExpForm}/>}
             {showSection && showAddBtn && <div className="button-container">
                 <button className="new-edu-btn" type="button" onClick={() =>
                     {
@@ -51,7 +52,7 @@ export function ExperienceSection({userExp, setUserExp}) {
     )
 }
 
-function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp}) {
+function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp, setShowAddbtn, setShowExpForm}) {
     const [showAchievements, setShowAchievements] = useState(false);
 
     const onBtnClick = (currentView) => () => {
@@ -101,7 +102,7 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                 </button>
                 {showAchievements && <ExperienceSectionFormAdditional/>}
             </div>
-            <ExperienceSectionFormBtns/>
+            <ExperienceSectionFormBtns setShowExpForm={setShowExpForm} setShowAddBtn={setShowAddbtn}/>
         </form>
     )
 }
@@ -168,18 +169,30 @@ function ExperienceSectionFormAdditional({}) {
     )
 }
 
-function ExperienceSectionFormBtns({}) {
+function ExperienceSectionFormBtns({setShowExpForm, setShowAddBtn}) {
     return (
         <div className="form-btns">
-            <button className="delete-btn" type="button"> 
+            <button className="delete-btn" type="button" onClick={(e) => {
+                e.preventDefault();
+                setShowExpForm(false);
+                setShowAddBtn(true);
+            }}> 
                 <Icon path={mdiDelete} className="link-icon" />
                 Delete
             </button>
             <div>
-                <button className="cancel-btn" type="button">
+                <button className="cancel-btn" type="button" onClick={(e) => {
+                    e.preventDefault();
+                    setShowExpForm(false);
+                    setShowAddBtn(true);
+                }}>
                     Cancel
                 </button>
-                <button className="save-btn" type="submit">
+                <button className="save-btn" type="submit" onClick={(e) => {
+                    e.preventDefault();
+                    setShowExpForm(false);
+                    setShowAddBtn(true);
+                }}>
                     <Icon path={mdiContentSave} className="link-icon" />
                     Save
                 </button>
