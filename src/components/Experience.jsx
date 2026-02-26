@@ -49,7 +49,7 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                 </div>
                 <div className="input-field">
                     <label htmlFor="company-name">Company Name</label>
-                    <div><input type="text"  id="company-name" name="company-name"/></div>
+                    <div><input type="text" id="company-name" name="company-name"/></div>
                 </div>
                 <div className="input-field">
                     <label htmlFor="location-name">Location</label>
@@ -64,7 +64,13 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                     <ExperienceSectionFormDate isStart={false} idName={"end-date"}/>
                 </div>
             </fieldset>
-
+            <fieldset>
+                <legend>Additional Job Information</legend>
+                <div className="input-field">
+                    <label htmlFor="responsibility-name">Responsibility</label>
+                    <div><input type="text" id="responsibility-name" name="responsibility-name"/></div>
+                </div>
+            </fieldset>
 
         </form>
     )
