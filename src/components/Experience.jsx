@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiBriefcase, mdiPlus, mdiMinus, mdiContentSave} from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiBriefcase, mdiPlus, mdiMinus, mdiContentSave, mdiDelete} from '@mdi/js';
 import "../styles/experience.css"
 
 export function ExperienceSection({userExp, setUserExp}) {
@@ -88,7 +88,8 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                         {showAchievements && <Icon path={mdiMinus} className="link-icon plus-icon" />}
                 </button>
                 {showAchievements && <ExperienceSectionFormAdditional/>}
-                </div>
+            </div>
+            <ExperienceSectionFormBtns/>
         </form>
     )
 }
@@ -152,5 +153,25 @@ function ExperienceSectionFormAdditional({}) {
                 <div><input type="text" name="addit-info" id="addit-info" /></div>
             </div>
         </fieldset>
+    )
+}
+
+function ExperienceSectionFormBtns({}) {
+    return (
+        <div className="form-btns">
+            <button className="delete-btn" type="button"> 
+                <Icon path={mdiDelete} className="link-icon" />
+                Delete
+            </button>
+            <div>
+                <button className="cancel-btn" type="button">
+                    Cancel
+                </button>
+                <button className="save-btn" type="submit">
+                    <Icon path={mdiContentSave} className="link-icon" />
+                    Save
+                </button>
+            </div>
+        </div>
     )
 }
