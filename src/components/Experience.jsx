@@ -8,8 +8,10 @@ export function ExperienceSection({userExp, setUserExp}) {
     const [showLink, setShowLink] = useState(false);
     const [showSection, setShowSection] = useState(false);
     const [selectedExp, setSelectedExp] = useState(null);
+    const [showAddBtn, setShowAddBtn] = useState(true);
+    const [showExpForm, setShowExpForm] = useState(false);
 
-    
+
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowLink(newView);
@@ -34,7 +36,17 @@ export function ExperienceSection({userExp, setUserExp}) {
                     <Icon path={mdiChevronUp} className="header-icon" />
                 </button>}
             </div>
-            { showSection && <ExperienceSectionForm/>}
+            {showSection && showExpForm && <ExperienceSectionForm/>}
+            {showSection && showAddBtn && <div className="button-container">
+                <button className="new-edu-btn" type="button" onClick={() =>
+                    {
+                        setShowExpForm(true);
+                        setShowAddBtn(false);
+                }}>
+                <Icon path={mdiPlus} className="link-icon" />
+                Experience
+                </button>
+            </div>}
         </section>
     )
 }
