@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiBriefcase} from '@mdi/js';
+import { mdiChevronDown,mdiChevronUp, mdiBriefcase, mdiPlus, mdiMinus, mdiContentSave} from '@mdi/js';
 import "../styles/experience.css"
 
 export function ExperienceSection({userExp, setUserExp}) {
     const [showLink, setShowLink] = useState(false);
     const [showSection, setShowSection] = useState(false);
     const [selectedExp, setSelectedExp] = useState(null);
+
     
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -39,6 +40,13 @@ export function ExperienceSection({userExp, setUserExp}) {
 }
 
 function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp}) {
+    const [showAchievements, setShowAchievements] = useState(false);
+
+    const onBtnClick = (currentView) => () => {
+        const newView = currentView ? false : true;
+        setShowAchievements(newView);
+    }
+    
     return( 
         <form className="exp-info">
             <fieldset>
@@ -71,7 +79,16 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                     <div><input type="text" id="responsibility-name" name="responsibility-name"/></div>
                 </div>
             </fieldset>
-
+            <div className="additional-achievement-section">
+                <button 
+                    type="button"
+                    onClick={onBtnClick(showAchievements)}>
+                        Additional Achievements
+                        {!showAchievements && <Icon path={mdiPlus} className="link-icon plus-icon" />}
+                        {showAchievements && <Icon path={mdiMinus} className="link-icon plus-icon" />}
+                </button>
+                {showAchievements && <ExperienceSectionFormAdditional/>}
+                </div>
         </form>
     )
 }
@@ -119,3 +136,21 @@ function ExperienceSectionFormDate({isStart, idName}) {
     )
 }
 
+function ExperienceSectionFormAdditional({}) {
+    return (
+        <fieldset>
+            <legend>Add new additional job information</legend>
+            <div className="input-field">
+                <label htmlFor="addit-info">Name
+                    <button className="add-achievement" onClick={(event) => {
+                        event.preventDefault();
+                    }}>
+                        <Icon path={mdiContentSave} className="link-icon"/>
+                        Save Achievement
+                    </button>
+                </label>
+                <div><input type="text" name="addit-info" id="addit-info" /></div>
+            </div>
+        </fieldset>
+    )
+}
