@@ -12,7 +12,7 @@ import { NewSection } from "./new.jsx";
 export function MainSection() {
     const [generalInput, setGeneralInput] = useState({});
     const [educationInput, setEducationInput] = useState([]);
-    const [jobInput, setJobInput] = useState([]);
+    const [expInput, setExpInput] = useState([]);
     const [summaryInput, setSummaryInput] = useState({});
     const [skillsInput, setSkillsInput] = useState([]);
     const [projectInput, setProjectInput] = useState([]);
@@ -23,14 +23,14 @@ export function MainSection() {
             <div className="form-section">
                 <GeneralSection generalInput={generalInput} setGeneralInput={setGeneralInput}/>
                 <EducationSection userEducation={educationInput} setUserEducation={setEducationInput}/>
-                <ExperienceSection userJob={jobInput} setUserJob={setJobInput}/>
+                <ExperienceSection userExp={expInput} setUserExp={setExpInput}/>
                 <SummarySection userSummary={summaryInput} setUserSummary={setSummaryInput}/>
                 <SkillsSection userSkill={skillsInput} setUserSkill={setSkillsInput}/>
                 <ProjectSection userProject={projectInput} setUserProject={projectInput}/>
                 <NewSection userSection={sectionInput} setUserSection={setSectionInput}/>
             </div>
             <div className="preview-section">
-                <Resume generalInput={generalInput} educationInput={educationInput} />
+                <Resume generalInput={generalInput} educationInput={educationInput} expInput={expInput}/>
             </div>
         </main>
     )
