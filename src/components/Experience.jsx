@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
 import { mdiChevronDown,mdiChevronUp, mdiBriefcase} from '@mdi/js';
 import "../styles/experience.css"
@@ -54,9 +55,61 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                     <label htmlFor="location-name">Location</label>
                     <div><input type="text" id="location-name" name="location-name" /></div>
                 </div>
+                <div className="input-field-date">
+                    <label htmlFor="start-date">Start date</label>
+                    <ExperienceSectionFormDate isStart={true} idName={"start-date"}/>
+                </div>
+                <div className="input-field-date">
+                    <label htmlFor="end-date">End date</label>
+                    <ExperienceSectionFormDate isStart={false} idName={"end-date"}/>
+                </div>
             </fieldset>
 
-            
+
         </form>
     )
 }
+
+function ExperienceSectionFormDate({isStart, idName}) {
+    
+    const months = eachMonthOfInterval({
+        start: new Date(2012, 12, 31),
+        end: new Date(2013, 11, 31)
+    });
+
+    const years = isStart ? eachYearOfInterval({
+        start: new Date(),
+        end: subYears(new Date(), 100)
+        }) : eachYearOfInterval({
+        start: addYears(new Date(), 10),
+        end: subYears(new Date(), 100)
+    });
+
+    return (
+        <div>
+            <div className="date-field">
+                <select name="months" id={"month-" + idName}>
+                   <option value={-1}>Month</option>
+                   {months.map((month, index) => {
+                        return (
+                            <option value={month} key={index}>
+                                {format(month, 'MMMM')}
+                            </option>
+                        )
+                   })}
+                </select>
+                <select name="years" id={"year-" + idName} >
+                   <option value={-1}>Year</option>
+                   {years.map((year, index) => {
+                        return (
+                            <option value={year} key={index}>
+                                {format(year, 'yyyy')}
+                            </option>
+                        )
+                   })}
+                </select>
+            </div>
+        </div>
+    )
+}
+
