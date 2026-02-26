@@ -256,7 +256,7 @@ function ExperienceSectionForm({userExp, setUserExp, setShowAddbtn, setShowExpFo
                         {!showAchievements && <Icon path={mdiPlus} className="link-icon plus-icon" />}
                         {showAchievements && <Icon path={mdiMinus} className="link-icon plus-icon" />}
                 </button>
-                {showAchievements && <ExperienceSectionFormAdditional/>}
+                {showAchievements && <ExperienceSectionFormAdditional achievements={achievements} setAchievements={setAchievements} currentId={currentId} setCurrentId={setCurrentId} userExp={userExp} setUserExp={setUserExp}/>}
             </div>
             <ExperienceSectionFormBtns setShowExpForm={setShowExpForm} setShowAddBtn={setShowAddbtn} selectedExp={selectedExp} setSelectedExp={setSelectedExp} currentId={currentId} setCurrentId={setCurrentId}
             userExp={userExp} setUserExp={setUserExp} initialValue={positionName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
@@ -414,21 +414,95 @@ function ExperienceSectionFormDate({isStart, idName, currentDate, setCurrentDate
     )
 }
 
-function ExperienceSectionFormAdditional({}) {
+function ExperienceSectionFormAdditional({achievements, setAchievements, currentId, setCurrentId, userExp, setUserExp}) {
+    
+    const [currentAchievement, setCurrentAchievement] = useState("");
+
     return (
         <fieldset>
             <legend>Add new additional job information</legend>
             <div className="input-field">
                 <label htmlFor="addit-info">Name
-                    <button className="add-achievement" onClick={(event) => {
+                    <button className="add-achievement" 
+                    onClick={(event) => {
                         event.preventDefault();
+                        
+                        const newAchievement = [...achievements, {
+                            achievement: currentAchievement,
+                            id: crypto.randomUUID()
+                        }];
+                        
+                        setAchievements(newAchievement);
+                        setCurrentAchievement("");
+                        
+                        if(currentId != null)
+                        {
+                            const arr = [...userExp];
+                            const indexOfSelected = arr.findIndex((element) => {
+                                return element.id == currentId;
+                            });
+                            arr[indexOfSelected] = {
+                                ...arr[indexOfSelected],
+                                achievements: newAchievement,
+                                id: currentId
+                            };
+                            setUserExp(arr);
+                        } else {
+                            const newId = crypto.randomUUID();
+                            setUserExp([...userExp, {
+                            achievements: newAchievement,
+                            id: newId
+                            }]);
+                            setCurrentId(newId);
+                        }
                     }}>
                         <Icon path={mdiContentSave} className="link-icon"/>
                         Save Achievement
                     </button>
                 </label>
-                <div><input type="text" name="addit-info" id="addit-info" /></div>
+                <div><input type="text" name="addit-info" id="addit-info" value={currentAchievement}
+                        onChange={(event) => {
+                            setCurrentAchievement(event.target.value);
+                        }}/>
+                </div>
             </div>
+            { achievements.length != 0 &&  achievements.map((achievement) => {
+                return (
+                <div className="achievement-container" key={achievement.id}>
+                    <p>{achievement.achievement}</p>
+                    <button className="achievement-btn"><Icon path={mdiEyeOutline} className="link-icon"/></button>
+                    <button className="achievement-btn"><Icon path={mdiDelete} className="link-icon delete-icon"
+                        onClick={() => {
+                            const arr = [...achievements].filter((element) => {
+                                if(element.id != achievement.id) return element;
+                            });
+                                        
+                            if(currentId != null)
+                            {
+                                const tempArr = [...userExp];
+                                const indexOfSelected = tempArr.findIndex((element) => {
+                                        return element.id == currentId;
+                                });
+                                tempArr[indexOfSelected] = {
+                                    ...tempArr[indexOfSelected],
+                                    achievements: arr,
+                                    id: currentId
+                                };
+                                setUserExp(tempArr);
+                            } else {
+                                const newId = crypto.randomUUID();
+                                setUserExp([...userExp, {
+                                achievements: arr,
+                                id: newId
+                                }]);
+                                setCurrentId(newId);
+                            }      
+                                setAchievements(arr);
+                        }}/>
+                    </button>
+                </div>
+                )
+            })}
         </fieldset>
     )
 }
