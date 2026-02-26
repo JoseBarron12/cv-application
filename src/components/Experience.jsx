@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } from "date-fns";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiBriefcase, mdiPlus, mdiMinus, mdiContentSave, mdiDelete} from '@mdi/js';
+import { mdiChevronDown, mdiChevronUp, mdiBriefcase, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiClose, mdiEyeOutline} from '@mdi/js';
 import "../styles/experience.css"
 
 export function ExperienceSection({userExp, setUserExp}) {
@@ -10,7 +10,6 @@ export function ExperienceSection({userExp, setUserExp}) {
     const [selectedExp, setSelectedExp] = useState(null);
     const [showAddBtn, setShowAddBtn] = useState(true);
     const [showExpForm, setShowExpForm] = useState(false);
-
 
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -36,8 +35,37 @@ export function ExperienceSection({userExp, setUserExp}) {
                     <Icon path={mdiChevronUp} className="header-icon" />
                 </button>}
             </div>
-            {showSection && showExpForm && <ExperienceSectionForm showSection={showSection} setShowSection={setShowSection}
-            userExp={userExp} setUserExp={setUserExp} setShowAddbtn={setShowAddBtn} setShowExpForm={setShowExpForm}/>}
+            
+            {showSection && showAddBtn && userExp.length != 0 && userExp.map(input => {
+                return (
+                    <div className="button-container input-container" key={input.id}>
+                        <button className="input-name"
+                            onClick={() =>
+                                {
+                                    setSelectedExp(input);
+                                    setShowExpForm(true);
+                                    setShowAddBtn(false);
+                                }}>{input.position}</button>
+                                <button className="input-btn"><Icon path={mdiEyeOutline} className="link-icon" 
+                                onClick={() => {
+                                    const arr = [...userExp];
+                                    const indexOfSelected = arr.findIndex((element) => {
+                                        return element.id == input.id;
+                                    });
+                                    const showFlag = (arr[indexOfSelected].show == false) ? true: false;
+                                        
+                                    arr[indexOfSelected] = {
+                                        ...arr[indexOfSelected],
+                                        show: showFlag
+                                    };
+                                    setUserExp(arr);
+                                }}/></button>
+                    </div>
+                )
+            })}
+            
+            {showSection && showExpForm && <ExperienceSectionForm userExp={userExp} setUserExp={setUserExp} 
+            setShowAddbtn={setShowAddBtn} setShowExpForm={setShowExpForm} selectedExp={selectedExp} setSelectedExp={setSelectedExp}/>}
             {showSection && showAddBtn && <div className="button-container">
                 <button className="new-edu-btn" type="button" onClick={() =>
                     {
@@ -52,8 +80,126 @@ export function ExperienceSection({userExp, setUserExp}) {
     )
 }
 
-function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp, setShowAddbtn, setShowExpForm}) {
+const processGeneralInput = (currentId, setCurrentId, userExp, setUserExp, type, value,
+    positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements) => {    
+        if(currentId != null)
+            {
+                const arr = [...userExp];
+                const indexOfSelected = arr.findIndex((element) => {
+                    return element.id == currentId;
+                });
+               
+                arr[indexOfSelected] = {
+                    position: positionName,
+                    company: companyName,
+                    location: locationName,
+                    responsibility: responsibilityName,
+                    startDate: startDate,
+                    endDate: endDate,
+                    achievements: achievements,
+                    id: currentId
+                };
+                arr[indexOfSelected][type] = value;
+                    
+                setUserExp(arr);
+
+            } else {
+                const newId = crypto.randomUUID();
+
+                const newExpObj = {
+                    position: positionName,
+                    company: companyName,
+                    location: locationName,
+                    responsibility: responsibilityName,
+                    startDate: startDate,
+                    endDate: endDate,
+                    achievements: achievements,
+                    id: newId
+                }
+                newExpObj[type] = value;
+
+                setUserExp([...userExp, {
+                    ...newExpObj
+                }]);
+
+                setCurrentId(newId);
+            }
+}   
+
+function GeneralInput({type, name, id, initialValue, callBack, currentId, setCurrentId, 
+    userExp, setUserExp, positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements}) {
+    
+    const [currentValue, setCurrentValue] = useState(initialValue);
+    
+    const showX = (currentId != null && initialValue != "") ? true : false;
+    
+    const [displayX, setDisplayX] = useState(showX);
+    return (
+        <div>
+            <input type={type} name={name + "-name"} id={id + "-name"} value={currentValue} 
+            onChange={(event) => {
+                    event.preventDefault();
+                    
+                    callBack(event.target.value);
+
+                    processGeneralInput(currentId, setCurrentId, userExp, setUserExp, name, event.target.value,
+                    positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements)
+
+                    setCurrentValue(event.target.value);
+                    setDisplayX(true);
+                    
+            }}/>
+            {displayX && <ResetBtn setCurrentValue={setCurrentValue} setDisplayX={setDisplayX} currentId={currentId}
+            name={name} callBack={callBack} userExp={userExp} setUserExp={setUserExp} positionName={positionName}
+            companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate}
+            endDate={endDate} achievements={achievements}/>}
+        </div>
+    )
+}
+
+function ResetBtn({setCurrentValue, setDisplayX, currentId, setCurrentId, name, callBack,
+    userExp, setUserExp, positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements}) {
+    return (
+        <button type="button"  onClick={(event) => {
+            event.preventDefault()
+            
+            callBack(event.target.value);
+            processGeneralInput(currentId, setCurrentId, userExp, setUserExp, name, "",
+            positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements)
+            
+            setCurrentValue("");
+            setDisplayX(false);
+        }}><Icon path={mdiClose} className="close-icon" />
+        </button>
+    )
+}
+
+function ExperienceSectionForm({userExp, setUserExp, setShowAddbtn, setShowExpForm, selectedExp, setSelectedExp}) {
     const [showAchievements, setShowAchievements] = useState(false);
+
+    const defaultPosition = selectedExp!= null ? selectedExp.position : "";
+    const [positionName, setPositionName] = useState(defaultPosition);
+    
+    const defaultCompany = selectedExp != null ? selectedExp.company : "";
+    const [companyName, setCompanyName] = useState(defaultCompany);
+    
+    const defaultLocation = selectedExp != null ? selectedExp.location : "";
+    const [locationName, setLocationName] = useState(defaultLocation);
+    
+    const defaultResponsibility = selectedExp != null ? selectedExp.responsibility : "";
+    const [responsibilityName, setResponsibilityName] = useState(defaultResponsibility);
+    
+    const defaultStartDate = (selectedExp != null && selectedExp.startDate != undefined) ? selectedExp.startDate : "";
+    const [startDate, setStartDate] = useState(defaultStartDate);
+    
+    const defaultEndDate = (selectedExp != null && selectedExp.endDate != undefined) ? selectedExp.endDate : "";
+    const [endDate, setEndDate] = useState(defaultEndDate);
+
+    const defaultAchievements= selectedExp != null ? selectedExp.achievements: "";
+    const [achievements, setAchievements] = useState(defaultAchievements);
+
+    const defaultCurrentId= selectedExp != null ? selectedExp.id: null;
+    const [currentId, setCurrentId] = useState(defaultCurrentId);
 
     const onBtnClick = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -66,15 +212,21 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                 <legend>Job Information</legend>
                 <div className="input-field">
                     <label htmlFor="position-name">Position Title</label>
-                    <div><input type="text" id="position-name" name="position-name"/></div>
+                    <GeneralInput type={"text"} name={"position"} id={"position"} callBack={setPositionName} currentId={currentId} setCurrentId={setCurrentId}
+                    userExp={userExp} setUserExp={setUserExp} initialValue={positionName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
+                    achievements={achievements}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="company-name">Company Name</label>
-                    <div><input type="text" id="company-name" name="company-name"/></div>
+                    <GeneralInput type={"text"} name={"company"} id={"company"} callBack={setCompanyName} currentId={currentId} setCurrentId={setCurrentId}
+                    userExp={userExp} setUserExp={setUserExp} initialValue={companyName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
+                    achievements={achievements}/>
                 </div>
                 <div className="input-field">
                     <label htmlFor="location-name">Location</label>
-                    <div><input type="text" id="location-name" name="location-name" /></div>
+                    <GeneralInput type={"text"} name={"location"} id={"location"} callBack={setLocationName} currentId={currentId} setCurrentId={setCurrentId}
+                    userExp={userExp} setUserExp={setUserExp} initialValue={locationName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
+                    achievements={achievements}/>
                 </div>
                 <div className="input-field-date">
                     <label htmlFor="start-date">Start date</label>
@@ -89,7 +241,9 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                 <legend>Additional Job Information</legend>
                 <div className="input-field">
                     <label htmlFor="responsibility-name">Responsibility</label>
-                    <div><input type="text" id="responsibility-name" name="responsibility-name"/></div>
+                    <GeneralInput type={"text"} name={"responsibility"} id={"responsibility"} callBack={setResponsibilityName} currentId={currentId} setCurrentId={setCurrentId}
+                    userExp={userExp} setUserExp={setUserExp} initialValue={responsibilityName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
+                    achievements={achievements}/>
                 </div>
             </fieldset>
             <div className="additional-achievement-section">
@@ -102,7 +256,9 @@ function ExperienceSectionForm({showSection, setShowSection, userExp, setUserExp
                 </button>
                 {showAchievements && <ExperienceSectionFormAdditional/>}
             </div>
-            <ExperienceSectionFormBtns setShowExpForm={setShowExpForm} setShowAddBtn={setShowAddbtn}/>
+            <ExperienceSectionFormBtns setShowExpForm={setShowExpForm} setShowAddBtn={setShowAddbtn} selectedExp={selectedExp} setSelectedExp={setSelectedExp} currentId={currentId} setCurrentId={setCurrentId}
+            userExp={userExp} setUserExp={setUserExp} initialValue={positionName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
+            achievements={achievements}/>
         </form>
     )
 }
@@ -169,11 +325,31 @@ function ExperienceSectionFormAdditional({}) {
     )
 }
 
-function ExperienceSectionFormBtns({setShowExpForm, setShowAddBtn}) {
+function ExperienceSectionFormBtns({setShowExpForm, setShowAddBtn, currentId, setCurrentId, selectedExp, setSelectedExp,
+    userExp, setUserExp, positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements
+}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button" onClick={(e) => {
                 e.preventDefault();
+                
+                if(selectedExp != null)
+                    {
+                        const arr = [...userExp];
+                        setUserExp(arr.filter((element) => {
+                            if(element.id != selectedExp.id) return element;
+                        }));
+                        setSelectedExp(null);
+                    }
+
+                if(currentId != null) {
+                    const arr = [...userExp];
+                    setUserExp(arr.filter((element) => {
+                        if(element.id != currentId) return element;
+                    }));
+                    setCurrentId(null);
+                }
+                
                 setShowExpForm(false);
                 setShowAddBtn(true);
             }}> 
@@ -182,16 +358,47 @@ function ExperienceSectionFormBtns({setShowExpForm, setShowAddBtn}) {
             </button>
             <div>
                 <button className="cancel-btn" type="button" onClick={(e) => {
-                    e.preventDefault();
+                    if(currentId != null && selectedExp == null) {
+                        const arr = [...userExp];
+
+                        setUserExp(arr.filter((element) => {
+                            if(element.id != currentId) return element;
+                        }));
+                        setCurrentId(null);
+                    }
+                    setSelectedExp(null);
                     setShowExpForm(false);
                     setShowAddBtn(true);
                 }}>
                     Cancel
                 </button>
-                <button className="save-btn" type="submit" onClick={(e) => {
+                <button className="save-btn" type="submit" onClick={(e) => 
+                {
                     e.preventDefault();
+                        
+                    if(selectedExp != null)
+                    {
+                        const arr = [...userExp];
+                        const indexOfSelected = arr.findIndex((element) => {
+                            return element.id == selectedExp.id;
+                        });
+                        arr[indexOfSelected] = {
+                            position: positionName,
+                            company: companyName,
+                            location: locationName,
+                            responsibility: responsibilityName,
+                            startDate: startDate,
+                            endDate: endDate,
+                            achievements: achievements,
+                            id: selectedExp.id
+                        };
+                        setSelectedExp(null);
+                        setUserExp(arr);
+                    }
+                    
                     setShowExpForm(false);
                     setShowAddBtn(true);
+                    setCurrentId(null)
                 }}>
                     <Icon path={mdiContentSave} className="link-icon" />
                     Save
