@@ -230,11 +230,13 @@ function ExperienceSectionForm({userExp, setUserExp, setShowAddbtn, setShowExpFo
                 </div>
                 <div className="input-field-date">
                     <label htmlFor="start-date">Start date</label>
-                    <ExperienceSectionFormDate isStart={true} idName={"start-date"}/>
+                    <ExperienceSectionFormDate isStart={true} idName={"start-date"} currentDate={startDate} setCurrentDate={setStartDate} currentId={currentId} setCurrentId={setCurrentId} userExp={userExp} setUserExp={setUserExp} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
+                    achievements={achievements}/>
                 </div>
                 <div className="input-field-date">
                     <label htmlFor="end-date">End date</label>
-                    <ExperienceSectionFormDate isStart={false} idName={"end-date"}/>
+                    <ExperienceSectionFormDate isStart={false} idName={"end-date"} currentDate={endDate} setCurrentDate={setEndDate} currentId={currentId} setCurrentId={setCurrentId} userExp={userExp} setUserExp={setUserExp} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
+                    achievements={achievements}/>
                 </div>
             </fieldset>
             <fieldset>
@@ -263,7 +265,9 @@ function ExperienceSectionForm({userExp, setUserExp, setShowAddbtn, setShowExpFo
     )
 }
 
-function ExperienceSectionFormDate({isStart, idName}) {
+function ExperienceSectionFormDate({isStart, idName, currentDate, setCurrentDate, currentId, setCurrentId, 
+    userExp, setUserExp, positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements
+}) {
     
     const months = eachMonthOfInterval({
         start: new Date(2012, 12, 31),
@@ -281,7 +285,59 @@ function ExperienceSectionFormDate({isStart, idName}) {
     return (
         <div>
             <div className="date-field">
-                <select name="months" id={"month-" + idName}>
+                <select name="months" id={"month-" + idName} value={currentDate.month}
+                 onChange={(event) => {
+                    setCurrentDate({...currentDate, month: event.target.value});
+                    if(currentId != null)
+                    {
+                        const arr = [...userExp];
+                        const indexOfSelected = arr.findIndex((element) => {
+                            return element.id == currentId;
+                        });
+                        if(isStart)
+                        {
+                            arr[indexOfSelected] = {
+                            ...arr[indexOfSelected],
+                            startDate: {...currentDate, month: event.target.value}
+                            };
+                                setUserExp(arr);
+                        } else {
+                            arr[indexOfSelected] = {
+                            ...arr[indexOfSelected],
+                            endDate: {...currentDate, month: event.target.value}
+                            };
+                            setUserExp(arr);
+                        }
+                    } else {
+                        const newId = crypto.randomUUID();
+                        if(isStart)
+                        {
+                            setUserExp([...userExp, {
+                                position: positionName,
+                                company: companyName,
+                                location: locationName,
+                                responsibility: responsibilityName,
+                                endDate: endDate,
+                                achievements: achievements,
+                                startDate: {...currentDate, month: event.target.value},
+                                id: newId
+                            }]);
+                            setCurrentId(newId);
+                        } else {
+                            setUserExp([...userExp, {
+                                position: positionName,
+                                company: companyName,
+                                location: locationName,
+                                responsibility: responsibilityName,
+                                startDate: startDate,
+                                achievements: achievements,
+                                endDate: {...currentDate, month: event.target.value},
+                                id: newId
+                            }]);
+                            setCurrentId(newId);
+                        }
+                    }
+                }}> 
                    <option value={-1}>Month</option>
                    {months.map((month, index) => {
                         return (
@@ -291,7 +347,59 @@ function ExperienceSectionFormDate({isStart, idName}) {
                         )
                    })}
                 </select>
-                <select name="years" id={"year-" + idName} >
+                <select name="years" id={"year-" + idName} value={currentDate.year}
+                onChange={(event) => {
+                    setCurrentDate({...currentDate, year: event.target.value});
+                    if(currentId != null)
+                    {
+                        const arr = [...userExp];
+                        const indexOfSelected = arr.findIndex((element) => {
+                            return element.id == currentId;
+                        });
+                        if(isStart)
+                        {
+                            arr[indexOfSelected] = {
+                            ...arr[indexOfSelected],
+                            startDate: {...currentDate, year: event.target.value}
+                            };
+                                setUserExp(arr);
+                        } else {
+                            arr[indexOfSelected] = {
+                            ...arr[indexOfSelected],
+                            endDate: {...currentDate, year: event.target.value}
+                            };
+                            setUserExp(arr);
+                        }
+                    } else {
+                        const newId = crypto.randomUUID();
+                        if(isStart)
+                        {
+                            setUserExp([...userExp, {
+                                position: positionName,
+                                company: companyName,
+                                location: locationName,
+                                responsibility: responsibilityName,
+                                endDate: endDate,
+                                achievements: achievements,
+                                startDate: {...currentDate, year: event.target.value},
+                                id: newId
+                            }]);
+                            setCurrentId(newId);
+                        } else {
+                            setUserExp([...userExp, {
+                                position: positionName,
+                                company: companyName,
+                                location: locationName,
+                                responsibility: responsibilityName,
+                                startDate: startDate,
+                                achievements: achievements,
+                                endDate: {...currentDate, year: event.target.value},
+                                id: newId
+                            }]);
+                            setCurrentId(newId);
+                        }
+                    }
+                }}>
                    <option value={-1}>Year</option>
                    {years.map((year, index) => {
                         return (
@@ -326,8 +434,7 @@ function ExperienceSectionFormAdditional({}) {
 }
 
 function ExperienceSectionFormBtns({setShowExpForm, setShowAddBtn, currentId, setCurrentId, selectedExp, setSelectedExp,
-    userExp, setUserExp, positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements
-}) {
+    userExp, setUserExp, positionName, companyName, locationName, responsibilityName, startDate, endDate, achievements}) {
     return (
         <div className="form-btns">
             <button className="delete-btn" type="button" onClick={(e) => {
