@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Icon from '@mdi/react';
-import { mdiChevronDown,mdiChevronUp, mdiNoteText} from '@mdi/js';
+import { mdiChevronDown, mdiChevronUp, mdiNoteText, mdiClose} from '@mdi/js';
 import "../styles/summary.css"
 
 export function SummarySection({userSummary, setUserSummary}) {
@@ -19,7 +19,7 @@ export function SummarySection({userSummary, setUserSummary}) {
     
     return (
         <section className="summary-section">
-            <div className="header-section">
+            <div className="header-section summary-header">
                 <div>
                     <Icon path={mdiNoteText} className="header-icon" />
                     <h2>Summary</h2>
@@ -31,6 +31,58 @@ export function SummarySection({userSummary, setUserSummary}) {
                     <Icon path={mdiChevronUp} className="header-icon" />
                 </button>}
             </div>
+            {showSection && <SummarySectionForm userSummary={userSummary} setUserSummary={setUserSummary}/>}
         </section>
     )
 }
+
+
+function SummarySectionForm({userSummary, setUserSummary}) {
+    return (
+        <form className="summary-info">
+            <div className="input-field">
+                <label htmlFor="summary-text">Description</label>
+                <SummaryInput id={"summary-text"} name={"summary-text"} setUserSummary={setUserSummary} userSummary={userSummary} />
+            </div>
+        </form>
+    )
+}
+
+function SummaryInput({id, name, initialValue, setUserSummary, userSummary}) {
+    const [currentValue, setCurrentValue] = useState(initialValue);
+    const [displayX, setDisplayX] = useState(false);
+
+    return (
+        <div>
+            <textarea id={id} value={currentValue} name={name} rows={4}
+            onChange={(event) => {
+                    event.preventDefault();
+                    
+                    setUserSummary({...userSummary, summary: event.target.value})
+
+                    setCurrentValue(event.target.value);
+                    setDisplayX(true);
+                    
+            }}/>
+            {displayX && <ResetBtn callBack={setUserSummary} setCurrentValue={setCurrentValue} setDisplayX={setDisplayX} userInput={userSummary} />}
+        </div>
+
+    )
+}
+
+function ResetBtn({callBack, setCurrentValue, setDisplayX, userInput}) {
+    return (
+        <button type="button" className="summary-button" onClick={(event) => {
+            event.preventDefault()
+        
+            callBack({...userInput, summary: ""})
+
+            setCurrentValue("");
+            setDisplayX(false);
+        }}><Icon path={mdiClose} className="close-icon summary-icon" />
+        </button>
+    )
+}
+
+
+
