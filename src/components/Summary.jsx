@@ -49,8 +49,11 @@ function SummarySectionForm({userSummary, setUserSummary}) {
 }
 
 function SummaryInput({id, name, initialValue, setUserSummary, userSummary}) {
-    const [currentValue, setCurrentValue] = useState(initialValue);
-    const [displayX, setDisplayX] = useState(false);
+    const [currentValue, setCurrentValue] = useState(userSummary.summary);
+    
+    const displayXFlag = (userSummary.summary != undefined || userSummary.summary != null) ? true : false;
+    
+    const [displayX, setDisplayX] = useState(displayXFlag);
 
     return (
         <div>

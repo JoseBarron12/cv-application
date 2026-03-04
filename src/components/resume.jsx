@@ -2,7 +2,7 @@ import {useState } from "react";
 import "../styles/resume.css"
 import { format, isDate } from "date-fns";
 
-export function Resume({generalInput, educationInput, expInput}) {
+export function Resume({generalInput, educationInput, expInput, summaryInput}) {
     return (
         <div>
             <div className="resume">
@@ -19,6 +19,18 @@ export function Resume({generalInput, educationInput, expInput}) {
                             {(generalInput.github != "" &&  generalInput.github != undefined) && generalInput.github}
                         </div>}
                         </div>
+
+                        {summaryInput.summary != undefined && summaryInput.summary != "" && 
+                        <div className="general-edu">
+                            <div className="general-edu-header">Summary</div>
+                            <div className="general-edu-containers">
+                                <div className="general-edu-container summary-text">
+                                    {summaryInput.summary}
+                                </div>
+                            </div>
+                        </div>} 
+
+
                         {educationInput.length != 0 &&
                         <div className="general-edu">
                             <div className="general-edu-header">Education</div>
@@ -85,7 +97,8 @@ export function Resume({generalInput, educationInput, expInput}) {
                                     )}
                                 })}
                             </div>
-                        </div>}
+                        </div>}           
+
                     </div>
         </div>
     )
