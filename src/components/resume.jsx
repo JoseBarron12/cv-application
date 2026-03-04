@@ -2,7 +2,7 @@ import {useState } from "react";
 import "../styles/resume.css"
 import { format, isDate } from "date-fns";
 
-export function Resume({generalInput, educationInput, expInput, summaryInput}) {
+export function Resume({generalInput, educationInput, expInput, summaryInput, skillsInput}) {
     return (
         <div>
             <div className="resume">
@@ -29,6 +29,37 @@ export function Resume({generalInput, educationInput, expInput, summaryInput}) {
                                 </div>
                             </div>
                         </div>} 
+
+                        {skillsInput.length != 0 && 
+                        <div className="general-edu">
+                            <div className="general-edu-header">Skills</div>
+                            <div className="general-edu-containers">
+                                {skillsInput.map((skill) => {
+                                    if(skill.show != false) {
+                                    return (
+                                        <p key={skill.id} className="general-skill-container"> 
+                                            <>
+                                                <strong>{skill.category}</strong>
+                                                {skill.skills != undefined && skill.skills != "" && skill.skills.length != 0 &&
+                                                        skill.skills.map((sk, index) => {
+                                                        
+                                                        const preText = (index == 0) ? ": " : "";
+                                                        const postText = (index != skill.skills.length - 1) ? ",    " : ""
+                                                        
+                                                    return (
+                                                        <>{preText +  sk.skill + postText}
+                                                        </>
+                                                    )
+                                                        
+                                                })}
+                                            </>
+                                        </p>
+                                    )}
+                                
+                                })}
+                            </div>
+                        </div>}
+
 
 
                         {educationInput.length != 0 &&

@@ -30,7 +30,7 @@ export function MainSection() {
                 <NewSection userSection={sectionInput} setUserSection={setSectionInput}/>
             </div>
             <div className="preview-section">
-                <Resume generalInput={generalInput} educationInput={educationInput} expInput={expInput} summaryInput={summaryInput}/>
+                <Resume generalInput={generalInput} educationInput={educationInput} expInput={expInput} summaryInput={summaryInput} skillsInput={skillsInput}/>
             </div>
         </main>
     )
