@@ -30,6 +30,10 @@ form.general-info {
     gap: 16px;
 }
 
+label {
+    font-weight: 900;
+}
+
 .input-field {
     display: flex;
     flex-direction: column;
@@ -42,11 +46,39 @@ form.general-info {
     width: 100%;
 }
 
-.input-field > input {
+.input-field > div {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: rgba(2, 0, 36, 0.2);
     border: none;
     border-radius: 8px;
     padding: 4px 8px;
+    color: var(--secondary);
+}
+
+.input-field-date {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.input-field > div > input , .input-field > div > textarea{
+    background: none;
+    border: none;
+    flex-grow: 1;
+}
+
+.input-field > div > button {
+    background: none;
+    border: none;
+}
+
+.close-icon {
+    height: 20px;
+    width: auto;
     color: var(--secondary);
 }
 
@@ -58,7 +90,7 @@ form.general-info {
     gap: 8px;
 }
 
-.additional-link-section > button{
+.additional-link-section > button,  .additional-achievement-section > button{
     border: none;
     background: none;
     width: 100%;
@@ -79,4 +111,3 @@ form.general-info-links {
     width: auto;
     color: var(--secondary);
 }
-
