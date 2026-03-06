@@ -43,7 +43,7 @@
 
 .header-general {
     font-size: 32px;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 .info-general {
@@ -80,3 +80,4 @@
 .edu-bullet-pts{
     margin-left: 32px;
 }
+
