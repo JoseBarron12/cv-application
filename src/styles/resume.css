@@ -56,8 +56,12 @@
 .general-edu-header {
     font-size: 18.6px;
     border-bottom: 1px solid var(--background);
+    padding-bottom: 4px;
     text-transform: uppercase;
 }
+
+
+
 
 .general-edu-container {
     display: flex;

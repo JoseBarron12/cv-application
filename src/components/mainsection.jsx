@@ -9,14 +9,9 @@ import { SkillsSection } from "./Skills.jsx";
 import { ProjectSection } from "./project.jsx";
 import { NewSection } from "./new.jsx";
 
-export function MainSection() {
-    const [generalInput, setGeneralInput] = useState({});
-    const [educationInput, setEducationInput] = useState([]);
-    const [expInput, setExpInput] = useState([]);
-    const [summaryInput, setSummaryInput] = useState({});
-    const [skillsInput, setSkillsInput] = useState([]);
-    const [projectInput, setProjectInput] = useState([]);
-    const [sectionInput, setSectionInput] = useState([]);
+export function MainSection({generalInput, educationInput, expInput, summaryInput, skillsInput, sectionInput,
+    setGeneralInput, setEducationInput, setExpInput, setSummaryInput, setSkillsInput, setSectionInput
+}) {
 
     return(
         <main>
