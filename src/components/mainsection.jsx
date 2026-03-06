@@ -26,7 +26,6 @@ export function MainSection() {
                 <ExperienceSection userExp={expInput} setUserExp={setExpInput}/>
                 <SummarySection userSummary={summaryInput} setUserSummary={setSummaryInput}/>
                 <SkillsSection userSkill={skillsInput} setUserSkill={setSkillsInput}/>
-                <ProjectSection userProject={projectInput} setUserProject={projectInput}/>
                 <NewSection userSection={sectionInput} setUserSection={setSectionInput}/>
             </div>
             <div className="preview-section">

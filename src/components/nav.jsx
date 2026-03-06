@@ -2,7 +2,7 @@ import Icon from '@mdi/react';
 import { mdiTrayArrowDown } from '@mdi/js';
 import "../styles/nav.css"
 
-export function NavSection() {
+export function NavSection({}) {
     return (
         <nav className="nav-section">
             <div className="header-text">
@@ -12,7 +12,9 @@ export function NavSection() {
                 <button className="preview-btn">
                     Preview
                 </button>
-                <button className="download-btn">
+                <button className="download-btn" onClick={() => {
+                window.print();
+                }}>
                     <Icon path={mdiTrayArrowDown} className='download-icon'/>
                     Download
                 </button>
