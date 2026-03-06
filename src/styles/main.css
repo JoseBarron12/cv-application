@@ -1,14 +1,15 @@
 main {
     background-color: var(--background);
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 1fr max-content;
+    gap: 32px;
 }
 
 .form-section {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 16px 32px;
+    padding: 16px 0px 16px 32px;
 }
 
 .form-section > *{
@@ -23,3 +24,4 @@ main {
     width: auto;
     color: var(--secondary);
 }
+
