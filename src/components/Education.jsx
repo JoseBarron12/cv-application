@@ -79,7 +79,6 @@ function EducationSection({userEducation, setUserEducation}) {
     )
 }
 
-
 const processGeneralInput = (currentId, setCurrentId, userEducation, setUserEducation, type, value,
     schoolName,locationName,degreeName, fieldName, gradeValue, startDate, endDate, achievements) => {    
         if(currentId != null)
@@ -137,7 +136,7 @@ function GeneralInput({type, name, id, initialValue, callBack, currentId, setCur
     const [displayX, setDisplayX] = useState(showX);
     return (
         <div>
-            <input type={type} name={name + "name"} id={id + "name"} value={currentValue} 
+            <input type={type} name={name + "-name"} id={id + "-name"} value={currentValue} 
             onChange={(event) => {
                     event.preventDefault();
                     
@@ -175,7 +174,6 @@ function ResetBtn({setCurrentValue, setDisplayX, currentId, setCurrentId, userEd
         </button>
     )
 }
-
 
 function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducation, setUserEducation, selectedEdu, setSelectedEdu}) {
     const [showAchievements, setShowAchievements] = useState(false);

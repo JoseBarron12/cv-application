@@ -78,3 +78,21 @@ main {
     padding: 2px;
 
 }
+
+
+@media (max-width: 1350px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 0px;
+    }
+
+    .form-section, .preview-section {
+        padding: 16px !important;
+    }
+
+    .resume {
+        width: 100% !important;
+    }
+
+
+}   
