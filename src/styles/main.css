@@ -91,7 +91,7 @@ main {
     }
 
     .resume {
-        width: 100% !important;
+        width: calc(100%) !important;
     }
 
 
