@@ -96,3 +96,35 @@ main {
 
 
 }   
+
+@media (max-width: 850px) {
+    .header-text > h1 {
+        display: none;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .header-btns > button > p {
+        display: none;
+    }
+}
+
+
+
+
+
+.header-section > div {
+    width: 100%;
+}
+
+.header-section > div > svg, .header-section > button {
+    flex-shrink: 0;
+}
+
+.header-section > div > h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}

@@ -7,6 +7,7 @@ nav {
     background-color: var(--background);
     color: var(--text);
     border-bottom: 1px solid var(--text);
+    gap: 16px;
 }
 
 h1 {
@@ -41,4 +42,15 @@ h1 {
 .download-icon {
     height: 24px;
     width: 24px;
+}
+
+.header-text {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
 }

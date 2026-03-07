@@ -24,9 +24,9 @@ export function NewSection({userSection, setUserSection}) {
                     <Icon path={mdiNotePlus} className="header-icon" />
                     <h2>Create New Section</h2>
                 </div>
-                <div type="button" onClick={showSectionBtn(showSection)}>
-                    <Icon path={mdiPlus } className="header-icon" />
-                </div>
+                <button type="button" onClick={showSectionBtn(showSection)}>
+                    <Icon path={mdiPlus } className="header-icon new-icon" />
+                </button>
             </button>
         </section>
     )

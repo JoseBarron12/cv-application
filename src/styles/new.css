@@ -11,6 +11,6 @@
     color: var(--text);
 }
 
-.create-section > button > div > .header-icon {
+.create-section > button > div > .header-icon, .new-icon {
     color: var(--text);
 }
