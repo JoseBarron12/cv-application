@@ -145,3 +145,7 @@ section:hover{
 .input-field:hover, .input-field-date:hover, .date-field>select:hover {
     color: var(--background);
 }
+
+button, .header-text {
+ cursor: pointer;
+}
