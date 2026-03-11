@@ -3,6 +3,7 @@ import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } f
 import Icon from '@mdi/react';
 import { mdiChevronDown, mdiChevronUp, mdiBriefcase, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiClose, mdiEyeOutline} from '@mdi/js';
 import "../styles/experience.css"
+import { addActive,removeActive } from "./eventlisteners";
 
 export function ExperienceSection({userExp, setUserExp}) {
     const [showLink, setShowLink] = useState(false);
@@ -210,19 +211,31 @@ function ExperienceSectionForm({userExp, setUserExp, setShowAddbtn, setShowExpFo
         <form className="exp-info">
             <fieldset>
                 <legend>Job Information</legend>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("position-name")}}
+                    onMouseEnter={() => {addActive("position-name")}}
+                    onMouseLeave={() => {removeActive("position-name")}}
+                >
                     <label htmlFor="position-name">Position Title</label>
                     <GeneralInput type={"text"} name={"position"} id={"position"} callBack={setPositionName} currentId={currentId} setCurrentId={setCurrentId}
                     userExp={userExp} setUserExp={setUserExp} initialValue={positionName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
                     achievements={achievements}/>
                 </div>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("company-name")}}
+                    onMouseEnter={() => {addActive("company-name")}}
+                    onMouseLeave={() => {removeActive("company-name")}}
+                >
                     <label htmlFor="company-name">Company Name</label>
                     <GeneralInput type={"text"} name={"company"} id={"company"} callBack={setCompanyName} currentId={currentId} setCurrentId={setCurrentId}
                     userExp={userExp} setUserExp={setUserExp} initialValue={companyName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
                     achievements={achievements}/>
                 </div>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("location-name")}}
+                    onMouseEnter={() => {addActive("location-name")}}
+                    onMouseLeave={() => {removeActive("location-name")}}
+                >
                     <label htmlFor="location-name">Location</label>
                     <GeneralInput type={"text"} name={"location"} id={"location"} callBack={setLocationName} currentId={currentId} setCurrentId={setCurrentId}
                     userExp={userExp} setUserExp={setUserExp} initialValue={locationName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
@@ -241,7 +254,11 @@ function ExperienceSectionForm({userExp, setUserExp, setShowAddbtn, setShowExpFo
             </fieldset>
             <fieldset>
                 <legend>Additional Job Information</legend>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("responsibility-name")}}
+                    onMouseEnter={() => {addActive("responsibility-name")}}
+                    onMouseLeave={() => {removeActive("responsibility-name")}}
+                >
                     <label htmlFor="responsibility-name">Responsibility</label>
                     <GeneralInput type={"text"} name={"responsibility"} id={"responsibility"} callBack={setResponsibilityName} currentId={currentId} setCurrentId={setCurrentId}
                     userExp={userExp} setUserExp={setUserExp} initialValue={responsibilityName} positionName={positionName} companyName={companyName} locationName={locationName} responsibilityName={responsibilityName} startDate={startDate} endDate={endDate}
@@ -421,7 +438,11 @@ function ExperienceSectionFormAdditional({achievements, setAchievements, current
     return (
         <fieldset>
             <legend>Add new additional job information</legend>
-            <div className="input-field">
+            <div className="input-field"
+                onClick={() => {addActive("addit-info")}}
+                onMouseEnter={() => {addActive("addit-info")}}
+                onMouseLeave={() => {removeActive("addit-info")}
+            }>
                 <label htmlFor="addit-info">Name
                     <button className="add-achievement" 
                     onClick={(event) => {

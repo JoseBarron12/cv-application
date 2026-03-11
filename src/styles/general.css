@@ -64,11 +64,17 @@ label {
     gap: 4px;
 }
 
+.active-input{
+    border: 2px solid black !important;
+}
 
 .input-field > div > input , .input-field > div > textarea{
     background: none;
     border: none;
     flex-grow: 1;
+}
+.input-field > div > input:focus , .input-field > div > textarea:focus {
+    outline: none;
 }
 
 .input-field > div > button {

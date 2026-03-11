@@ -3,6 +3,7 @@ import { eachMonthOfInterval, format, subYears, addYears, eachYearOfInterval } f
 import Icon from '@mdi/react';
 import { mdiChevronDown,mdiChevronUp, mdiSchool, mdiPlus, mdiMinus, mdiContentSave, mdiDelete, mdiEyeOutline, mdiClose} from '@mdi/js';
 import "../styles/education.css"
+import { addActive,removeActive } from "./eventlisteners";
 
 function EducationSection({userEducation, setUserEducation}) {
     const [showEducationForm, setShowEducationForm] = useState(false);
@@ -213,14 +214,22 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
         <form className={"education-info"}>
             <fieldset>
                 <legend>School Information</legend>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("school-name")}}
+                    onMouseEnter={() => {addActive("school-name")}}
+                    onMouseLeave={() => {removeActive("school-name")}}
+                >
                     <label htmlFor="school-name">School</label>
                     <GeneralInput name={"school"} id={"school"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
                          initialValue={schoolName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
                          endDate={endDate} achievements={achievements} callBack={setSchoolName}
                     />
                 </div>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("location-name")}}
+                    onMouseEnter={() => {addActive("location-name")}}
+                    onMouseLeave={() => {removeActive("location-name")}}
+                >
                     <label htmlFor="location-name">Location</label>
                     <GeneralInput name={"location"} id={"location"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
                          initialValue={locationName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
@@ -230,21 +239,30 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
             </fieldset>
             <fieldset>
                 <legend>Degree Information</legend>
-                <div className="input-field">
+                <div className="input-field"
+                onClick={() => {addActive("degree-name")}}
+                onMouseEnter={() => {addActive("degree-name")}}
+                onMouseLeave={() => {removeActive("degree-name")}}
+                >
                     <label htmlFor="degree-name">Degree</label>
                     <GeneralInput name={"degree"} id={"degree"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
                          initialValue={degreeName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
                          endDate={endDate} achievements={achievements} callBack={setDegreeName}
                     />
                 </div>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("field-name")}}
+                    onMouseEnter={() => {addActive("field-name")}}
+                    onMouseLeave={() => {removeActive("field-name")}}
+                >
                     <label htmlFor="field-name">Field of study</label>
                     <GeneralInput name={"field"} id={"field"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
                          initialValue={fieldName} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
                          endDate={endDate} achievements={achievements} callBack={setFieldName}
                     />
                 </div>
-                <div className="input-field-date">
+                <div className="input-field-date"
+                >
                     <label htmlFor="start-date">Start date</label>
                     <EducationSectionFormDate isStart={true} idName={"start-date"}
                     currentDate={startDate} setCurrentDate={setStartDate} currentId={currentId} setCurrentId={setCurrentId}
@@ -257,7 +275,11 @@ function EducationSectionForm({setShowEducationForm, setShowAddBtn, userEducatio
                     currentDate={endDate} setCurrentDate={setEndDate}  currentId={currentId} setCurrentId={setCurrentId}
                     userEducation={userEducation} setUserEducation={setUserEducation}/>
                 </div>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("grade-name")}}
+                    onMouseEnter={() => {addActive("grade-name")}}
+                    onMouseLeave={() => {removeActive("grade-name")}}
+                >
                     <label htmlFor="grade-name">GPA</label>
                     <GeneralInput name={"grade"} id={"grade"} currentId={currentId} setCurrentId={setCurrentId} userEducation={userEducation} setUserEducation={setUserEducation} type={"text"}
                          initialValue={gradeValue} schoolName={schoolName} locationName={locationName} degreeName={degreeName} fieldName={fieldName} gradeValue={gradeValue} startDate={startDate}
@@ -449,7 +471,11 @@ function EducationSectionFormAchievement({achievements, setAchievements, current
     return (
         <fieldset>
             <legend>Add New Achievement</legend>
-            <div className="input-field">
+            <div className="input-field"
+                    onClick={() => {addActive("achievement-info")}}
+                    onMouseEnter={() => {addActive("achievement-info")}}
+                    onMouseLeave={() => {removeActive("achievement-info")}}
+                    >
                 <label htmlFor="achievement-info">Name
                     <button className="add-achievement"
                     onClick = {(event) => {

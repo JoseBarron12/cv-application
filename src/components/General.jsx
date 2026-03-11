@@ -3,6 +3,7 @@ import "../styles/general.css"
 import Icon from '@mdi/react';
 import { mdiAccount, mdiClose } from '@mdi/js';
 import { mdiChevronDown,mdiChevronUp, mdiPlus, mdiMinus } from '@mdi/js';
+import { addActive,removeActive } from "./eventlisteners";
 
 function GeneralSection({generalInput, setGeneralInput}) {
     const [showLink, setShowLink] = useState(false);
@@ -104,20 +105,35 @@ function ResetBtn({callBack, setCurrentValue, setDisplayX, userInput, type}) {
     )
 }
 
+
+
+
 function GeneralSectionForm({userInput, callBack}) {
     return (
         <form className="general-info">
-            <div className="input-field">
+            <div className="input-field"  
+            onClick={() => {addActive("general-name")}}
+            onMouseEnter={() => {addActive("general-name")}}
+            onMouseLeave={() => {removeActive("general-name")}}
+            >
                 <label htmlFor="general-name">Full Name</label>
                 <GeneralInput type={"text"} name={"general-name"} 
                 id={"general-name"} callBack={callBack} userInput={userInput} initialValue={userInput.name}/>
             </div>
-            <div className="input-field">
+            <div className="input-field"  
+            onClick={() => {addActive("general-email")}}
+            onMouseEnter={() => {addActive("general-email")}}
+            onMouseLeave={() => {removeActive("general-email")}}
+            >
                 <label htmlFor="general-email">Email</label>
                 <GeneralInput type={"email"} name={"general-email"} 
                 id={"general-email"} callBack={callBack} userInput={userInput} initialValue={userInput.email}/>
             </div>
-            <div className="input-field">
+            <div className="input-field"  
+            onClick={() => {addActive("general-phone")}}
+            onMouseEnter={() => {addActive("general-phone")}}
+            onMouseLeave={() => {removeActive("general-phone")}}
+            >
                 <label htmlFor="general-phone">Phone Number</label>
                 <GeneralInput type={"tel"} name={"general-phone"} 
                 id={"general-phone"} callBack={callBack} userInput={userInput} initialValue={userInput.number}/>
@@ -125,7 +141,6 @@ function GeneralSectionForm({userInput, callBack}) {
         </form>
     )
 }
-
 
 
 function GeneralSectionFormLinks({userInput, callBack}) {
@@ -138,7 +153,11 @@ function GeneralSectionFormLinks({userInput, callBack}) {
                 if(link == "LinkedIn")
                 {
                     return (
-                    <div className="input-field" key={userInput.id + index}>
+                    <div className="input-field" key={userInput.id + index}
+                    onClick={() => {addActive("general-link-" + link.toLocaleLowerCase())}}
+                    onMouseEnter={() => {addActive("general-link-" + link.toLocaleLowerCase())}}
+                    onMouseLeave={() => {removeActive("general-link-" + link.toLocaleLowerCase())}}
+                    >
                         <label htmlFor={"general-link-" + link.toLocaleLowerCase()}>{link}</label>
                         <GeneralInput type={link.toLocaleLowerCase()} name={"general-link-" + link.toLocaleLowerCase()} 
                         id={"general-link-" + link.toLocaleLowerCase()} callBack={callBack} userInput={userInput} initialValue={userInput.linkedIn}/>
@@ -147,7 +166,11 @@ function GeneralSectionFormLinks({userInput, callBack}) {
                 }
                 else if(link == "GitHub") {
                      return (
-                    <div className="input-field" key={userInput.id + index}>
+                    <div className="input-field" key={userInput.id + index}
+                    onClick={() => {addActive("general-link-" + link.toLocaleLowerCase())}}
+                    onMouseEnter={() => {addActive("general-link-" + link.toLocaleLowerCase())}}
+                    onMouseLeave={() => {removeActive("general-link-" + link.toLocaleLowerCase())}}
+                    >
                         <label htmlFor={"general-link-" + link.toLocaleLowerCase()}>{link}</label>
                         <GeneralInput type={link.toLocaleLowerCase()} name={"general-link-" + link.toLocaleLowerCase()} 
                         id={"general-link-" + link.toLocaleLowerCase()} callBack={callBack} userInput={userInput} initialValue={userInput.github}/>

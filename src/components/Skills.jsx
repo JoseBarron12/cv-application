@@ -2,6 +2,7 @@ import { useState } from "react";
 import Icon from '@mdi/react';
 import { mdiChevronDown,mdiChevronUp, mdiHeadCog, mdiPlus, mdiMinus, mdiEyeOutline, mdiClose, mdiContentSave, mdiDelete} from '@mdi/js';
 import "../styles/skills.css"
+import { addActive,removeActive } from "./eventlisteners";
 
 export function SkillsSection({userSkill, setUserSkill}) {
     const [showSection, setShowSection] = useState(false);
@@ -107,7 +108,10 @@ function SkillSectionForm({userSkill, setUserSkill, setShowAddbtn, setShowSkillF
             <fieldset>
                 <legend>Skill Information</legend>
 
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("category-name")}}
+                    onMouseEnter={() => {addActive("category-name")}}
+                    onMouseLeave={() => {removeActive("category-name")}}>
                     <label htmlFor="category-name">Category Name</label>
                     <SkillInput type={"text"} id={"category"} name={"category"} setUserSkill={setUserSkill} userSkill={userSkill} initialValue={categoryName} callBack={setCategoryName}
                      currentId={currentId} setCurrentId={setCurrentId} categoryName={categoryName} skillsArr={skillsArr}/>
@@ -224,7 +228,10 @@ function SkillSectionFormAdditional({skillsArr, setSkillsArr, currentId, setCurr
     return (
             <fieldset>
                 <legend>Add new skill </legend>
-                <div className="input-field">
+                <div className="input-field"
+                    onClick={() => {addActive("addit-info")}}
+                    onMouseEnter={() => {addActive("addit-info")}}
+                    onMouseLeave={() => {removeActive("addit-info")}}>
                     <label htmlFor="addit-info">Name
                         <button className="add-achievement" 
                         onClick={(event) => {

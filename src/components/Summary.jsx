@@ -2,6 +2,7 @@ import { useState } from "react";
 import Icon from '@mdi/react';
 import { mdiChevronDown, mdiChevronUp, mdiNoteText, mdiClose} from '@mdi/js';
 import "../styles/summary.css"
+import { addActive,removeActive } from "./eventlisteners";
 
 export function SummarySection({userSummary, setUserSummary}) {
     const [showLink, setShowLink] = useState(false);
@@ -40,7 +41,11 @@ export function SummarySection({userSummary, setUserSummary}) {
 function SummarySectionForm({userSummary, setUserSummary}) {
     return (
         <form className="summary-info">
-            <div className="input-field">
+            <div className="input-field"
+                    onClick={() => {addActive("summary-text", true)}}
+                    onMouseEnter={() => {addActive("summary-text", true)}}
+                    onMouseLeave={() => {removeActive("summary-text", true)}}
+            >
                 <label htmlFor="summary-text">Description</label>
                 <SummaryInput id={"summary-text"} name={"summary-text"} setUserSummary={setUserSummary} userSummary={userSummary} />
             </div>
