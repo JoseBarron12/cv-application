@@ -34,9 +34,21 @@ h1 {
     background-color: var(--text);
 }
 
+.preview-btn:hover {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--text);
+    scale: 1.01;
+}
+
 .download-btn {
     background-color: var(--accent);
     color: var(--text);
+}
+
+.download-btn:hover {
+    background-color: rgb(8, 0, 255);
+    scale: 1.01;
 }
 
 .download-icon {
