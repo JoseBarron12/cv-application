@@ -134,7 +134,14 @@ section:hover{
     scale: 1.005;
 }
 
-.form-btns>button:hover,.form-btns>div>button:hover {
+.form-btns>button:hover,.form-btns>div>button:hover, .add-achievement:hover {
     filter: brightness(75%);
 }
 
+.input-field, .input-field-date, .date-field>select {
+    color: rgba(1, 1, 4, 0.67);
+}
+
+.input-field:hover, .input-field-date:hover, .date-field>select:hover {
+    color: var(--background);
+}
