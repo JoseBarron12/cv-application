@@ -9,7 +9,7 @@
 
 button.new-edu-btn, .input-btn, .input-name{
     border: 2px solid var(--text);
-    background-color: var(--background);
+    background: none;
     display: flex;
     align-items: center;
     gap: 8px;
