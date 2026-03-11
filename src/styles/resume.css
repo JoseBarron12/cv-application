@@ -85,3 +85,6 @@
     margin-left: 32px;
 }
 
+.preview-section>div:hover {
+    scale: 1.005;
+}
