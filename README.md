@@ -1,16 +1,57 @@
-# React + Vite
+# CV Builder App 📄✨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A dynamic and interactive **CV/Resume Builder** built with **React**, allowing users to input their personal and professional information, preview it in real time, and download an **ATS-friendly resume**.
 
-Currently, two official plugins are available:
+🔗 **Live Website:** https://friendly-kleicha-6b3edb.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🌐 Overview
+This application enables users to create a professional resume by filling out structured sections such as general information, education, experience, summary, and skills.  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+As users type, the resume updates instantly, providing a live preview of the final layout. The finished CV can then be downloaded in a clean, **ATS (Applicant Tracking System) optimized format**.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ⚛️ Technologies Used
+- **React.js** – Component-based UI development  
+- **JavaScript (ES6+)** – Logic and interactivity  
+- **HTML5** – Structure  
+- **CSS3** – Styling and layout  
+
+---
+
+## 💡 Features
+- 🧾 Input sections for:
+  - General Information (name, contact details)
+  - Summary / Profile
+  - Education
+  - Work Experience
+  - Skills  
+- ⚡ **Real-time resume preview** as you type  
+- 📄 **Downloadable CV** in an ATS-friendly format  
+- 🎯 Clean, professional layout optimized for recruiters and ATS systems  
+- 📱 Fully responsive design  
+
+---
+
+## 🚀 How It Works
+1. Enter your details into the form fields  
+2. Watch your resume update instantly in the preview section  
+3. Download your completed CV with one click  
+
+---
+
+## 📌 Purpose
+This project was created to simplify the resume-building process while ensuring compatibility with modern hiring systems that rely on ATS parsing.
+
+---
+
+## 👨‍💻 Author
+**Jose Barron**  
+📍 GitHub: https://github.com/josebarron12  
+
+---
+
+## 📜 License
+This project is open-source and available under the **MIT License**.
