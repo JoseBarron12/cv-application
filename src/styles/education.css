@@ -1,59 +1,61 @@
-.button-container, .achievement-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    border-radius: 24px;
-    background-color: var(--background);
+.button-container,
+.achievement-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 24px;
+  background-color: var(--background);
 }
 
-button.new-edu-btn, .input-btn, .input-name{
-    border: 2px solid var(--text);
-    background: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 24px;
-    font-weight: bold;
-    border-radius: 24px;
-    width: max-content;
-    color: var(--text);
+button.new-edu-btn,
+.input-btn,
+.input-name {
+  border: 2px solid var(--text);
+  background: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  font-weight: bold;
+  border-radius: 24px;
+  width: max-content;
+  color: var(--text);
 }
 
 button.new-edu-btn > .link-icon {
-    color: var(--text);
+  color: var(--text);
 }
 
 legend {
-    display: none;
-
+  display: none;
 }
 
 .education-info {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 fieldset {
-    border: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .date-field {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-.date-field>select{
-    background-color: rgba(2, 0, 36, 0.2);
-    border: none;
-    border-radius: 8px;
-    padding: 4px 8px;
-    color: var(--secondary);
+.date-field > select {
+  background-color: rgba(2, 0, 36, 0.2);
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  color: var(--secondary);
 }
 
 select,
@@ -62,113 +64,113 @@ select,
 }
 
 .additional-achievement-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-
 
 .form-btns {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-.form-btns > div{
-    display: flex;
-    gap: 16px;
+.form-btns > div {
+  display: flex;
+  gap: 16px;
 }
 
-.delete-btn, .save-btn, .cancel-btn {
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    font-weight: bold;
-    border-radius: 16px;
-    color: var(--text);
+.delete-btn,
+.save-btn,
+.cancel-btn {
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 16px;
+  color: var(--text);
 }
 
 .delete-btn {
-    background-color: red;
+  background-color: red;
 }
 .delete-btn > .link-icon {
-    color: var(--text);
+  color: var(--text);
 }
 
 .cancel-btn {
-    background-color: var(--background);
-    color: var(--text);
+  background-color: var(--background);
+  color: var(--text);
 }
 
 .save-btn {
-    background-color: var(--accent);
+  background-color: var(--accent);
 }
 
 .link-icon {
-    color: var(--text);
+  color: var(--text);
 }
 
 .plus-icon {
-    color: var(--background);
+  color: var(--background);
 }
 .input-container {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .input-container > button {
-    background: none;
-    border: none;
-    color: var(--text);
+  background: none;
+  border: none;
+  color: var(--text);
 }
 
 .input-name {
-    flex-grow: 1;
-    display: flex;
-    font-weight: 900;
-    font-size: 1.2rem;
+  flex-grow: 1;
+  display: flex;
+  font-weight: 900;
+  font-size: 1.2rem;
 }
 .input-field > label {
-    display: flex;
-    justify-content: space-between;
-    gap: 4px;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
 }
 
 button.add-achievement {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    left: 48px;
-    top: 2px;
-    background-color: var(--accent);
-    border: none;
-    color: var(--text);
-    border-radius: 8px;
-    padding: 2px 4px;
-    font-size: smaller;
-    font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  left: 48px;
+  top: 2px;
+  background-color: var(--accent);
+  border: none;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 2px 4px;
+  font-size: smaller;
+  font-weight: 600;
 }
 
 button.add-achievement > .link-icon {
-    width: 16px;
-    height: auto;
+  width: 16px;
+  height: auto;
 }
 
 .achievement-container {
-    color: var(--text);
-    gap: 8px;
-    
+  color: var(--text);
+  gap: 8px;
 }
 
 .achievement-container > p {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .achievement-container > button {
-    border: none;
-    background: none;
+  border: none;
+  background: none;
 }
 
 .delete-icon {
-    color: red;
+  color: red;
 }

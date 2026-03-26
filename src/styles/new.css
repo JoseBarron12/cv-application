@@ -1,16 +1,17 @@
 .create-section {
-    padding: 0px;
-    background-color: var(--accent);
+  padding: 0px;
+  background-color: var(--accent);
 }
 
 .create-section > button {
-    padding: 8px 16px;
-    border-radius: 16px;
-    border: none;
-    background-color: var(--accent);
-    color: var(--text);
+  padding: 8px 16px;
+  border-radius: 16px;
+  border: none;
+  background-color: var(--accent);
+  color: var(--text);
 }
 
-.create-section > button > div > .header-icon, .new-icon {
-    color: var(--text);
+.create-section > button > div > .header-icon,
+.new-icon {
+  color: var(--text);
 }

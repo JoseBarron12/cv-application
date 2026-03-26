@@ -1,47 +1,45 @@
-
 :root {
-    position: relative;
+  position: relative;
 }
 
 main {
-    background-color: var(--background);
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    gap: 32px;
+  background-color: var(--background);
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  gap: 32px;
 }
 
 .form-section {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px 0px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0px 16px 32px;
 }
 
-.form-section > *{
-    background-color: var(--text);
-    color: var(--secondary);
-    padding: 8px 16px;
-    border-radius: 16px;
+.form-section > * {
+  background-color: var(--text);
+  color: var(--secondary);
+  padding: 8px 16px;
+  border-radius: 16px;
 }
 
 .header-icon {
-    height: 32px;
-    width: auto;
-    color: var(--secondary);
+  height: 32px;
+  width: auto;
+  color: var(--secondary);
 }
 
-
 @media print {
-    body {
-        visibility: hidden;
-    }
-    
-    div.resume {
-        visibility: visible;
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
+  body {
+    visibility: hidden;
+  }
+
+  div.resume {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }
 
 @page {
@@ -49,108 +47,105 @@ main {
   margin: 0;
 }
 
-
 .modal {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%);
-    z-index: 1000;
-    border: none;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1000;
+  border: none;
 }
 
 .backdrop {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
 }
 
 .modal-exit {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background-color: var(--text);
-    border: 2px solid var(--background);
-    border-radius: 50%;
-    padding: 2px;
-
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: var(--text);
+  border: 2px solid var(--background);
+  border-radius: 50%;
+  padding: 2px;
 }
-
 
 @media (max-width: 1350px) {
-    main {
-        grid-template-columns: 1fr;
-        gap: 0px;
-    }
+  main {
+    grid-template-columns: 1fr;
+    gap: 0px;
+  }
 
-    .form-section, .preview-section {
-        padding: 16px !important;
-    }
+  .form-section,
+  .preview-section {
+    padding: 16px !important;
+  }
 
-    .resume {
-        width: calc(100%) !important;
-    }
-
-
-}   
+  .resume {
+    width: calc(100%) !important;
+  }
+}
 
 @media (max-width: 850px) {
-    .header-text > h1 {
-        display: none;
-    }
+  .header-text > h1 {
+    display: none;
+  }
 }
-
 
 @media (max-width: 600px) {
-    .header-btns > button > p {
-        display: none;
-    }
+  .header-btns > button > p {
+    display: none;
+  }
 }
-
-
-
-
 
 .header-section > div {
-    width: 100%;
+  width: 100%;
 }
 
-.header-section > div > svg, .header-section > button {
-    flex-shrink: 0;
+.header-section > div > svg,
+.header-section > button {
+  flex-shrink: 0;
 }
 
 .header-section > div > h2 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 section {
-    transition: transform .1s ease-in-out;
+  transition: transform 0.1s ease-in-out;
 }
 
-
-section:hover{
-    transform: scale(1.005);
+section:hover {
+  transform: scale(1.005);
 }
 
-.form-btns>button:hover,.form-btns>div>button:hover, .add-achievement:hover {
-    filter: brightness(75%);
+.form-btns > button:hover,
+.form-btns > div > button:hover,
+.add-achievement:hover {
+  filter: brightness(75%);
 }
 
-.input-field, .input-field-date, .date-field>select {
-    color: rgba(1, 1, 4, 0.67);
+.input-field,
+.input-field-date,
+.date-field > select {
+  color: rgba(1, 1, 4, 0.67);
 }
 
-.input-field:hover, .input-field-date:hover, .date-field>select:hover {
-    color: var(--background);
+.input-field:hover,
+.input-field-date:hover,
+.date-field > select:hover {
+  color: var(--background);
 }
 
-button, .header-text {
- cursor: pointer;
+button,
+.header-text {
+  cursor: pointer;
 }

@@ -1,77 +1,77 @@
 nav {
-    background-color: red;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 32px;
-    background-color: var(--background);
-    color: var(--text);
-    border-bottom: 1px solid var(--text);
-    gap: 16px;
+  background-color: red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 32px;
+  background-color: var(--background);
+  color: var(--text);
+  border-bottom: 1px solid var(--text);
+  gap: 16px;
 }
 
 h1 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 .header-btns {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .header-btns > button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 24px;
-    border-radius: 24px;
-    border: none;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  border-radius: 24px;
+  border: none;
+  font-weight: bold;
 }
 
 .preview-btn {
-    background-color: var(--text);
+  background-color: var(--text);
 }
 
 .preview-btn:hover {
-    background-color: var(--background);
-    color: var(--text);
-    border: 1px solid var(--text);
-    scale: 1.01;
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--text);
+  scale: 1.01;
 }
 
 .download-btn {
-    background-color: var(--accent);
-    color: var(--text);
+  background-color: var(--accent);
+  color: var(--text);
 }
 
 .download-btn {
-    transition: scale 0.1s ease-in-out;
+  transition: scale 0.1s ease-in-out;
 }
-
 
 .download-btn:hover {
-    background-color: rgb(8, 0, 255);
-    scale: 1.01;
+  background-color: rgb(8, 0, 255);
+  scale: 1.01;
 }
 
 .download-icon {
-    height: 24px;
-    width: 24px;
+  height: 24px;
+  width: 24px;
 }
 
 .header-text {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .logo-icon {
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
 }
 
-.button-container:hover, .new-edu-btn:hover {
-    background-color: var(--accent);
+.button-container:hover,
+.new-edu-btn:hover {
+  background-color: var(--accent);
 }

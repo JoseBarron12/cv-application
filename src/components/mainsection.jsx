@@ -1,30 +1,58 @@
-import { GeneralSection} from './General.jsx'
-import { EducationSection } from './Education.jsx'
-import { ExperienceSection} from "./Experience.jsx";
-import "../styles/main.css"
+import { GeneralSection } from "./General.jsx";
+import { EducationSection } from "./Education.jsx";
+import { ExperienceSection } from "./Experience.jsx";
+import "../styles/main.css";
 import { Resume } from "./resume.jsx";
 import { SummarySection } from "./Summary.jsx";
 import { SkillsSection } from "./Skills.jsx";
 import { ProjectSection } from "./project.jsx";
 import { NewSection } from "./new.jsx";
 
-export function MainSection({generalInput, educationInput, expInput, summaryInput, skillsInput, sectionInput,
-    setGeneralInput, setEducationInput, setExpInput, setSummaryInput, setSkillsInput, setSectionInput
+export function MainSection({
+  generalInput,
+  educationInput,
+  expInput,
+  summaryInput,
+  skillsInput,
+  sectionInput,
+  setGeneralInput,
+  setEducationInput,
+  setExpInput,
+  setSummaryInput,
+  setSkillsInput,
+  setSectionInput,
 }) {
-
-    return(
-        <main>
-            <div className="form-section">
-                <GeneralSection generalInput={generalInput} setGeneralInput={setGeneralInput}/>
-                <EducationSection userEducation={educationInput} setUserEducation={setEducationInput}/>
-                <ExperienceSection userExp={expInput} setUserExp={setExpInput}/>
-                <SummarySection userSummary={summaryInput} setUserSummary={setSummaryInput}/>
-                <SkillsSection userSkill={skillsInput} setUserSkill={setSkillsInput}/>
-                <NewSection userSection={sectionInput} setUserSection={setSectionInput}/>
-            </div>
-            <div className="preview-section">
-                <Resume generalInput={generalInput} educationInput={educationInput} expInput={expInput} summaryInput={summaryInput} skillsInput={skillsInput}/>
-            </div>
-        </main>
-    )
+  return (
+    <main>
+      <div className="form-section">
+        <GeneralSection
+          generalInput={generalInput}
+          setGeneralInput={setGeneralInput}
+        />
+        <EducationSection
+          userEducation={educationInput}
+          setUserEducation={setEducationInput}
+        />
+        <ExperienceSection userExp={expInput} setUserExp={setExpInput} />
+        <SummarySection
+          userSummary={summaryInput}
+          setUserSummary={setSummaryInput}
+        />
+        <SkillsSection userSkill={skillsInput} setUserSkill={setSkillsInput} />
+        <NewSection
+          userSection={sectionInput}
+          setUserSection={setSectionInput}
+        />
+      </div>
+      <div className="preview-section">
+        <Resume
+          generalInput={generalInput}
+          educationInput={educationInput}
+          expInput={expInput}
+          summaryInput={summaryInput}
+          skillsInput={skillsInput}
+        />
+      </div>
+    </main>
+  );
 }

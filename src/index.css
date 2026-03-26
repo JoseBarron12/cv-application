@@ -1,10 +1,11 @@
 @font-face {
-    font-family: 'Noto Serif Khmer';
-    src: url('./assets/NotoSerifKhmer-Regular.woff2') format('woff2'),
-        url('./assets/NotoSerifKhmer-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Noto Serif Khmer";
+  src:
+    url("./assets/NotoSerifKhmer-Regular.woff2") format("woff2"),
+    url("./assets/NotoSerifKhmer-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 *,
@@ -27,7 +28,7 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Noto Serif Khmer';
+  font-family: "Noto Serif Khmer";
   font-weight: 400;
 }
 
