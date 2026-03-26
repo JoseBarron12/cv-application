@@ -9,7 +9,6 @@ export function Page() {
     const [expInput, setExpInput] = useState([]);
     const [summaryInput, setSummaryInput] = useState({});
     const [skillsInput, setSkillsInput] = useState([]);
-    const [projectInput, setProjectInput] = useState([]);
     const [sectionInput, setSectionInput] = useState([]);
     const [showPreview, setShowPreview] = useState(false);
 

@@ -3,15 +3,9 @@ import Icon from '@mdi/react';
 import { mdiChevronDown,mdiChevronUp, mdiAccountGroup} from '@mdi/js';
 import "../styles/summary.css"
 
-export function ProjectSection({userProject, setUserProject}) {
-    const [showLink, setShowLink] = useState(false);
+export function ProjectSection() {
     const [showSection, setShowSection] = useState(false);
     
-    const onBtnClick = (currentView) => () => {
-        const newView = currentView ? false : true;
-        setShowLink(newView);
-    }
-
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowSection(newView);

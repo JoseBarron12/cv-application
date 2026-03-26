@@ -3,15 +3,9 @@ import Icon from '@mdi/react';
 import { mdiNotePlus, mdiPlus } from '@mdi/js';
 import "../styles/new.css"
 
-export function NewSection({userSection, setUserSection}) {
-    const [showLink, setShowLink] = useState(false);
+export function NewSection() {
     const [showSection, setShowSection] = useState(false);
     
-    const onBtnClick = (currentView) => () => {
-        const newView = currentView ? false : true;
-        setShowLink(newView);
-    }
-
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowSection(newView);

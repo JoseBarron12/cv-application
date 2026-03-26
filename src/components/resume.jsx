@@ -1,6 +1,5 @@
-import {useState } from "react";
 import "../styles/resume.css"
-import { format, isDate } from "date-fns";
+import { format} from "date-fns";
 
 export function Resume({generalInput, educationInput, expInput, summaryInput, skillsInput}) {
     return (

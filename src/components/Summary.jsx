@@ -5,14 +5,8 @@ import "../styles/summary.css"
 import { addActive,removeActive } from "./eventlisteners";
 
 export function SummarySection({userSummary, setUserSummary}) {
-    const [showLink, setShowLink] = useState(false);
     const [showSection, setShowSection] = useState(false);
     
-    const onBtnClick = (currentView) => () => {
-        const newView = currentView ? false : true;
-        setShowLink(newView);
-    }
-
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
         setShowSection(newView);
@@ -53,7 +47,7 @@ function SummarySectionForm({userSummary, setUserSummary}) {
     )
 }
 
-function SummaryInput({id, name, initialValue, setUserSummary, userSummary}) {
+function SummaryInput({id, name, setUserSummary, userSummary}) {
     const [currentValue, setCurrentValue] = useState(userSummary.summary);
     
     const displayXFlag = (userSummary.summary == undefined || userSummary.summary == "") ? false : true;

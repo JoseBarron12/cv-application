@@ -1,4 +1,3 @@
-import {use, useState } from "react";
 import { GeneralSection} from './General.jsx'
 import { EducationSection } from './Education.jsx'
 import { ExperienceSection} from "./Experience.jsx";

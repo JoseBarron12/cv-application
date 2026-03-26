@@ -11,10 +11,7 @@ export function SkillsSection({userSkill, setUserSkill}) {
     const [showSkillForm, setShowSkillForm] = useState(false);
 
 
-    const onBtnClick = (currentView) => () => {
-        const newView = currentView ? false : true;
-        setShowLink(newView);
-    }
+
 
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -350,7 +347,7 @@ function SkillsSectionFormBtns({setShowSkillForm, setShowAddBtn, currentId, setC
                 Delete
             </button>
             <div>
-                <button className="cancel-btn" type="button" onClick={(e) => {
+                <button className="cancel-btn" type="button" onClick={() => {
                     if(currentId != null && selectedSkill == null) {
                         const arr = [...userSkill];
 

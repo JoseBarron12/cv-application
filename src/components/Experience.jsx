@@ -6,16 +6,10 @@ import "../styles/experience.css"
 import { addActive,removeActive } from "./eventlisteners";
 
 export function ExperienceSection({userExp, setUserExp}) {
-    const [showLink, setShowLink] = useState(false);
     const [showSection, setShowSection] = useState(false);
     const [selectedExp, setSelectedExp] = useState(null);
     const [showAddBtn, setShowAddBtn] = useState(true);
     const [showExpForm, setShowExpForm] = useState(false);
-
-    const onBtnClick = (currentView) => () => {
-        const newView = currentView ? false : true;
-        setShowLink(newView);
-    }
 
     const showSectionBtn = (currentView) => () => {
         const newView = currentView ? false : true;
@@ -559,7 +553,7 @@ function ExperienceSectionFormBtns({setShowExpForm, setShowAddBtn, currentId, se
                 Delete
             </button>
             <div>
-                <button className="cancel-btn" type="button" onClick={(e) => {
+                <button className="cancel-btn" type="button" onClick={() => {
                     if(currentId != null && selectedExp == null) {
                         const arr = [...userExp];
 
