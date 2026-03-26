@@ -130,8 +130,13 @@ main {
 
 }
 
+section {
+    transition: transform .1s ease-in-out;
+}
+
+
 section:hover{
-    scale: 1.005;
+    transform: scale(1.005);
 }
 
 .form-btns>button:hover,.form-btns>div>button:hover, .add-achievement:hover {
