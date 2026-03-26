@@ -85,6 +85,11 @@
     margin-left: 32px;
 }
 
+.preview-section>div { 
+    transition: transform 0.1s ease-in-out;
+}
+
+
 .preview-section>div:hover {
-    scale: 1.005;
+    transform: scale(1.005);
 }
